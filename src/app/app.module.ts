@@ -4,7 +4,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
-import { LoginModule, LoginRoutingModule } from './modules';
+import {
+  LoginModule,
+  LoginRoutingModule,
+  DashboardModule,
+  DashboardRoutingModule,
+} from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -15,6 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
     LoginModule,
     LoginRoutingModule,
     RouterModule,
+    DashboardModule,
+    DashboardRoutingModule,
     AppRoutingModule,
   ],
   providers: [],

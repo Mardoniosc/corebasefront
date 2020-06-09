@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -9,6 +10,8 @@ import {
   LoginRoutingModule,
   DashboardModule,
   DashboardRoutingModule,
+  MenuModule,
+  SharedModule,
 } from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +25,9 @@ import { AppRoutingModule } from './app-routing.module';
     RouterModule,
     DashboardModule,
     DashboardRoutingModule,
+    MenuModule,
+    SharedModule,
+    HttpClientModule,
     AppRoutingModule,
   ],
   providers: [],

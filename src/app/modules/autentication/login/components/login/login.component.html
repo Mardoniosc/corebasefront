@@ -11,14 +11,19 @@
             <!--Continually expanded and constantly improved Inspinia Admin Them (IN+)-->
         </p>
         <p>Login in. To see it in action.</p>
-        <form class="m-t" role="form" action="index.html">
+        <form [formGroup]="form" novalidate>
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Username" required="">
-            </div>
+                <input
+                  type="email"
+                  formControlName="login"
+                  class="form-control input-underline input-lg"
+                  id="email"
+                  placeholder="Nome de usuário">
+              </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="">
+              <input type="password" formControlName="senha" class="form-control input-underline input-lg" id="senha" placeholder="Senha">
             </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+            <button type="button" (click)="logar()" class="btn btn-primary block full-width m-b">Logar</button>
 
             <a href="#"><small>Forgot password?</small></a>
             <p class="text-muted text-center"><small>Do not have an account?</small></p>

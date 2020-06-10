@@ -24,36 +24,18 @@
           </li>
 
           <!-- MENU LATERAL -->
-          <li>
-            <a href="http://localhost:4200/dashboard"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
-          </li>
-          <li *ngIf="dashboardMenu">
-            <a href="http://localhost:4200/dashboard"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
-          </li>
-          <li>
-            <a *ngIf="usuarioPrincipal" href="http://localhost:4200/dashboard"><i class="fa fa-user"></i> <span class="nav-label"> Usuario </span><span class="fa arrow"></span></a>
+          <li *ngFor="let item of permissoes">
+            <a *ngIf="!item.permissaoPai" href="http://localhost:4200{{ item.url }}">
+              <i class="fa fa-user"></i>
+              <span class="nav-label">{{ item.descricao }}</span>
+              <span class="fa arrow"></span>
+            </a>
             <ul class="nav nav-second-level">
-              <li *ngIf="usuarioPesquisar"><a href="index.html">Consultar</a></li>
-              <li *ngIf="usuarioCadastrar"><a href="dashboard_3.html">Cadastrar</a></li>
+              <li *ngFor="let item2 of permissoes">
+                <a *ngIf="item.id == item2.permissaoPai?.id" href="{{ item2.url }}">{{ item2.descricao }}</a>
+              </li>
             </ul>
           </li>
-
-          <li>
-            <a *ngIf="perfilPrincipal" href="http://localhost:4200/dashboard"><i class="fa fa-users"></i> <span class="nav-label"> Perfil </span><span *ngIf="(perfilPesquisar || perfilCadastrar)" class="fa arrow"></span></a>
-            <ul class="nav nav-second-level" *ngIf="(perfilPesquisar || perfilCadastrar)" >
-              <li *ngIf="perfilPesquisar"><a href="index.html">Consultar</a></li>
-              <li *ngIf="perfilCadastrar" ><a href="dashboard_3.html">Cadastrar</a></li>
-            </ul>
-          </li>
-
-          <li *ngIf="permissaoPrincipal">
-            <a href="http://localhost:4200/dashboard"><i class="fa fa-lock"></i> <span class="nav-label"> Permissão </span><span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li *ngIf="permissaoPesquisar"><a href="index.html">Consultar</a></li>
-              <li *ngIf="permissaoCadastrar"><a href="dashboard_3.html">Cadastrar</a></li>
-            </ul>
-          </li>
-
         </ul>
   </div>
 </nav>

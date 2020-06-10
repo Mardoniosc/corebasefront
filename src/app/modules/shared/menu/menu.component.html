@@ -28,27 +28,14 @@
           <li class="active">
             <a href="http://localhost:4200/dashboard"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
           </li>
-          <li>
-              <a href="index.html"><i class="fa fa-user"></i> <span class="nav-label">Usuario</span> <span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                  <li><a href="index.html">Consultar</a></li>
-                  <!-- <li class="active"><a href="dashboard_2.html">Dashboard v.2</a></li> -->
-                  <li><a href="dashboard_3.html">Cadastrar</a></li>
-              </ul>
-          </li>
-          <li>
-            <a href="index.html"><i class="fa fa-users"></i> <span class="nav-label">Perfil</span> <span class="fa arrow"></span></a>
+
+          <li *ngFor="let menu of permissoes">
+            <a *ngIf="!menu.permissaoPai" href="http://localhost:4200{{ menu.url }}"><i class="fa fa-{{ menu.descricao | lowercase }}"></i> <span class="nav-label"> {{ menu.descricao }} </span><span *ngIf="!menu.permissaoPai" class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-                <li><a href="index.html">Consultar</a></li>
-                <!-- <li class="active"><a href="dashboard_2.html">Dashboard v.2</a></li> -->
-                <li><a href="dashboard_3.html">Cadastrar</a></li>
+              <li><a href="index.html">Consultar</a></li>
+              <li><a href="dashboard_3.html">Cadastrar</a></li>
             </ul>
-        </li>
-        <li *ngFor="let menu of usuario.perfil?.permissoes">
-          <a href="http://localhost:4200{{ menu.url }}"><i class="fa fa-home"></i> <span class="nav-label"> {{ menu.descricao }} </span></a>
-        </li>
-
-      </ul>
-
+          </li>
+        </ul>
   </div>
 </nav>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Usuario, Permissoes } from '../models';
 import { StorangeService } from '../services';
 
@@ -9,8 +8,6 @@ import { StorangeService } from '../services';
   styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent implements OnInit {
-  private subscriptions: Subscription[] = [];
-
   usuario = {} as Usuario;
 
   permissoes: Permissoes[];
@@ -19,11 +16,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregaUser();
-    this.permissoes = this.usuario.perfil.permissoes
-    console.log(this.usuario)
+    this.permissoes = this.usuario.perfil.permissoes;
+    console.log(this.permissoes);
   }
 
-  carregaUser(){
-    this.usuario = this.storange.getLocalUser()
+  carregaUser() {
+    this.usuario = this.storange.getLocalUser();
   }
 }

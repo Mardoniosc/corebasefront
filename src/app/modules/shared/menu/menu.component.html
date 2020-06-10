@@ -26,11 +26,11 @@
           <!-- MENU LATERAL -->
           <li *ngFor="let item of permissoes">
             <a *ngIf="!item.permissaoPai" href="http://localhost:4200{{ item.url }}">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-{{retornaicone(item.descricao) }}"></i>
               <span class="nav-label">{{ item.descricao }}</span>
-              <span class="fa arrow"></span>
+              <span class="fa arrow" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')"></span>
             </a>
-            <ul class="nav nav-second-level">
+            <ul class="nav nav-second-level" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')">
               <li *ngFor="let item2 of permissoes">
                 <a *ngIf="item.id == item2.permissaoPai?.id" href="{{ item2.url }}">{{ item2.descricao }}</a>
               </li>

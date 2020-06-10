@@ -18,4 +18,21 @@ export class MenuComponent implements OnInit {
     this.usuario = this.storange.getLocalUser();
     this.permissoes = this.usuario.perfil.permissoes;
   }
+
+  retornaicone(descricao): string {
+    switch (descricao) {
+      case 'Usuário':
+        return 'user';
+      case 'Perfil':
+        return 'users';
+      case 'Permissão':
+        return 'lock';
+      case 'Dashboard':
+        return 'dashboard';
+      case 'Home':
+        return 'home';
+      default:
+        return 'drupal';
+    }
+  }
 }

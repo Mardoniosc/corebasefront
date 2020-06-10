@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Login } from '../../models';
-import { API_CONFIG } from '../../config'
+import { API_CONFIG } from '../../config';
 
 @Injectable()
 export class LoginService {

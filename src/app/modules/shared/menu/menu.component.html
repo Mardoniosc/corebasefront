@@ -3,7 +3,6 @@
       <ul class="nav metismenu" id="side-menu">
 
         <!-- PERFIL DE USUARIO LOGADO -->
-
         <li class="nav-header">
               <div class="dropdown profile-element"> <span>
                       <img alt="image" class="img-circle" src="/api/imagensProfile/usuario1.jpg" style="width: 70px; height: 70px;"/>
@@ -25,17 +24,36 @@
           </li>
 
           <!-- MENU LATERAL -->
-          <li class="active">
+          <li>
             <a href="http://localhost:4200/dashboard"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
           </li>
-
-          <li *ngFor="let menu of permissoes">
-            <a *ngIf="!menu.permissaoPai" href="http://localhost:4200{{ menu.url }}"><i class="fa fa-{{ menu.descricao | lowercase }}"></i> <span class="nav-label"> {{ menu.descricao }} </span><span *ngIf="!menu.permissaoPai" class="fa arrow"></span></a>
+          <li *ngIf="dashboardMenu">
+            <a href="http://localhost:4200/dashboard"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span></a>
+          </li>
+          <li>
+            <a *ngIf="usuarioPrincipal" href="http://localhost:4200/dashboard"><i class="fa fa-user"></i> <span class="nav-label"> Usuario </span><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
-              <li><a href="index.html">Consultar</a></li>
-              <li><a href="dashboard_3.html">Cadastrar</a></li>
+              <li *ngIf="usuarioPesquisar"><a href="index.html">Consultar</a></li>
+              <li *ngIf="usuarioCadastrar"><a href="dashboard_3.html">Cadastrar</a></li>
             </ul>
           </li>
+
+          <li>
+            <a *ngIf="perfilPrincipal" href="http://localhost:4200/dashboard"><i class="fa fa-users"></i> <span class="nav-label"> Perfil </span><span *ngIf="(perfilPesquisar || perfilCadastrar)" class="fa arrow"></span></a>
+            <ul class="nav nav-second-level" *ngIf="(perfilPesquisar || perfilCadastrar)" >
+              <li *ngIf="perfilPesquisar"><a href="index.html">Consultar</a></li>
+              <li *ngIf="perfilCadastrar" ><a href="dashboard_3.html">Cadastrar</a></li>
+            </ul>
+          </li>
+
+          <li *ngIf="permissaoPrincipal">
+            <a href="http://localhost:4200/dashboard"><i class="fa fa-lock"></i> <span class="nav-label"> Permissão </span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li *ngIf="permissaoPesquisar"><a href="index.html">Consultar</a></li>
+              <li *ngIf="permissaoCadastrar"><a href="dashboard_3.html">Cadastrar</a></li>
+            </ul>
+          </li>
+
         </ul>
   </div>
 </nav>

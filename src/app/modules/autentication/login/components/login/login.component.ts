@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login, LoginService } from 'src/app/modules/shared';
+import { Login, LoginService, Erro } from 'src/app/modules/shared';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,15 @@ export class LoginComponent implements OnInit {
 
   login = {} as Login;
 
+  erro = {} as Erro;
+
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnDestroy() {
@@ -47,11 +51,17 @@ export class LoginComponent implements OnInit {
     this.subscriptions.push(
       this.loginService.logar(this.login).subscribe(
         (data) => {
-          console.log(data);
+          localStorage.setItem('@corebase:user', JSON.stringify(data));
+          this.router.navigate(['/dashboard']);
         },
-        (err) => console.log(err),
+        (err) => {
+          this.erro = err.error;
+          const msg = this.erro.message;
+          const title = `Erro ${this.erro.status} ${this.erro.error}`;
+          this.snackBar.open(msg, title, { duration: 3000 });
+        },
       ),
     );
-    // this.router.navigate(['/dashboard']);
+    //
   }
 }

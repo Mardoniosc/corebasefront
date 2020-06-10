@@ -15,6 +15,7 @@ import {
 } from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
     SharedModule,
     HttpClientModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

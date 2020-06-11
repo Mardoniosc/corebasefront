@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Login } from '../../models';
+import { Login, Usuario } from '../../models';
 import { API_CONFIG } from '../../config';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  logar(login: Login): Observable<any> {
-    return this.http.post(API_CONFIG.baseUrl + this.PATH, login);
+  logar(login: Login): Observable<Usuario> {
+    return this.http.post<Usuario>(API_CONFIG.baseUrl + this.PATH, login);
   }
 }

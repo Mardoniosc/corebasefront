@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) {}
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
@@ -35,16 +35,20 @@ export class LoginComponent implements OnInit {
     this.criarForm();
   }
 
-  criarForm() {
+  criarForm(): void {
     this.form = this.fb.group({
       login: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  logar() {
+  logar(): void {
     if (this.form.invalid) {
-      console.log('usuario ou senha incorreto');
+      this.snackBar.open(
+        'Preechimento inválido do formularios de login',
+        'Erro ao ler dados',
+        { duration: 3000 },
+      );
       return;
     }
     this.login = this.form.value;

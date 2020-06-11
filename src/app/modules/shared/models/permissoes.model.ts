@@ -3,5 +3,4 @@ export interface Permissoes {
   descricao: string;
   url: string;
   permissaoPai?: Permissoes;
-  icone?: string;
 }

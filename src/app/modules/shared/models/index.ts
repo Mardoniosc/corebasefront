@@ -1,3 +1,4 @@
+export * from './dto';
 export * from './login.model';
 export * from './forgot.model';
 export * from './usuario.model';

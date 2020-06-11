@@ -1,4 +1,4 @@
 export * from './shared.module';
-export * from './menu';
+export * from './components';
 export * from './models';
 export * from './services';

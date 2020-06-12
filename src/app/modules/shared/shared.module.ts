@@ -6,10 +6,12 @@ import {
   StorangeService,
   PerfilPermissaoService,
 } from './services';
+import { BarraDeMenuComponent, MenuModule } from './components';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
+  declarations: [BarraDeMenuComponent],
+  imports: [CommonModule, MenuModule],
   providers: [LoginService, StorangeService, PerfilPermissaoService],
+  exports: [BarraDeMenuComponent],
 })
 export class SharedModule {}

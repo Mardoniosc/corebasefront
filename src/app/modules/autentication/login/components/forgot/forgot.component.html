@@ -11,17 +11,14 @@
             <div class="form-group">
                 <input
                   type="email"
-                  formControlName="login"
+                  formControlName="email"
                   class="form-control input-underline input-lg"
                   id="email"
                   placeholder="Nome de usuário">
               </div>
-            <div class="form-group">
-              <input type="password" formControlName="senha" class="form-control input-underline input-lg" id="senha" placeholder="Senha">
-            </div>
-            <button type="button" (click)="logar()" class="btn btn-primary block full-width m-b">Logar</button>
+            <button type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
 
-            <a href="/forgot"><small>Esqueci minha senha?</small></a>
+            <a href="/auth/forgot"><small>Esqueci minha senha?</small></a>
         </form>
     </div>
   </div>

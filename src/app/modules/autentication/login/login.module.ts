@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoginComponent, ForgotComponent } from './components';
 
 import { SharedModule } from '../../shared';
@@ -14,6 +15,7 @@ import { SharedModule } from '../../shared';
     ReactiveFormsModule,
     SharedModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     RouterModule,
   ],
 })

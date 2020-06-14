@@ -16,7 +16,8 @@
                   id="email"
                   placeholder="Seu e-mail de cadastro">
               </div>
-            <button type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
+            <button *ngIf="!carregando" type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
+            <button *ngIf="carregando" type="button" class="btn btn-primary block full-width m-b">Enviando email...</button>
 
             <a href="/login"><small>Voltar para tela de login</small></a>
         </form>

@@ -6,12 +6,16 @@ import {
   StorangeService,
   PerfilPermissaoService,
 } from './services';
-import { BarraDeMenuComponent, MenuModule } from './components';
+import {
+  BarraDeMenuComponent,
+  MenuModule,
+  NotFoundComponent,
+} from './components';
 
 @NgModule({
-  declarations: [BarraDeMenuComponent],
+  declarations: [BarraDeMenuComponent, NotFoundComponent],
   imports: [CommonModule, MenuModule],
   providers: [LoginService, StorangeService, PerfilPermissaoService],
-  exports: [BarraDeMenuComponent],
+  exports: [BarraDeMenuComponent, NotFoundComponent],
 })
 export class SharedModule {}

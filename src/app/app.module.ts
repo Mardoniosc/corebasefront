@@ -13,6 +13,8 @@ import {
   DashboardRoutingModule,
   MenuModule,
   SharedModule,
+  UserModule,
+  UserRoutingModule,
 } from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -29,8 +31,11 @@ import { AppRoutingModule } from './app-routing.module';
     MenuModule,
     SharedModule,
     HttpClientModule,
-    AppRoutingModule,
+    UserModule,
+    UserRoutingModule,
     BrowserAnimationsModule,
+
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

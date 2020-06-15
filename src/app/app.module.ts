@@ -19,6 +19,8 @@ import {
   ProfileRoutingModule,
   PermitionModule,
   PermitionRoutingModule,
+  LogModule,
+  LogRoutingModule,
 } from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,6 +44,8 @@ import { AppRoutingModule } from './app-routing.module';
     ProfileRoutingModule,
     PermitionModule,
     PermitionRoutingModule,
+    LogModule,
+    LogRoutingModule,
 
     AppRoutingModule,
   ],

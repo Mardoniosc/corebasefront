@@ -15,6 +15,10 @@ import {
   SharedModule,
   UserModule,
   UserRoutingModule,
+  ProfileModule,
+  ProfileRoutingModule,
+  PermitionModule,
+  PermitionRoutingModule,
 } from './modules';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +38,10 @@ import { AppRoutingModule } from './app-routing.module';
     UserModule,
     UserRoutingModule,
     BrowserAnimationsModule,
+    ProfileModule,
+    ProfileRoutingModule,
+    PermitionModule,
+    PermitionRoutingModule,
 
     AppRoutingModule,
   ],

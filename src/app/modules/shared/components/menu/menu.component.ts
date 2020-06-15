@@ -71,6 +71,8 @@ export class MenuComponent implements OnInit {
         return 'dashboard';
       case 'Home':
         return 'home';
+      case 'Log':
+        return 'copy';
       default:
         return 'drupal';
     }

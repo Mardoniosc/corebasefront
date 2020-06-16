@@ -12,6 +12,7 @@ export const Dashboardoutes: Routes = [
 
     children: [{ path: '', component: HomeComponent }],
   },
+  { path: 'home', component: HomeComponent },
 ];
 
 @NgModule({

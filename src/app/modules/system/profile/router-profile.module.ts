@@ -2,11 +2,21 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 
-import { CadastrarComponent, ListarComponent } from './components';
+import {
+  CadastrarComponent,
+  ListarComponent,
+  PerfilComponent,
+} from './components';
 
 export const ProfileRoutes: Routes = [
-  { path: 'perfil-cadastrar', component: CadastrarComponent },
-  { path: 'perfil-pesquisar', component: ListarComponent },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
+    children: [
+      { path: 'cadastrar', component: CadastrarComponent },
+      { path: 'pesquisar', component: ListarComponent },
+    ],
+  },
 ];
 
 @NgModule({

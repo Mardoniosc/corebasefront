@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { CadastrarComponent, ListarComponent } from './components';
+import {
+  CadastrarComponent,
+  ListarComponent,
+  UsuarioComponent,
+} from './components';
 import { SharedModule, MenuModule } from '../../shared';
 
 @NgModule({
-  declarations: [CadastrarComponent, ListarComponent],
+  declarations: [CadastrarComponent, ListarComponent, UsuarioComponent],
   imports: [CommonModule, SharedModule, MenuModule, RouterModule],
 })
 export class UserModule {}

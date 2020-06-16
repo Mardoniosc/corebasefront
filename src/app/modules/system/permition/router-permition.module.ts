@@ -2,11 +2,21 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 
-import { CadastrarComponent, ListarComponent } from './components';
+import {
+  CadastrarComponent,
+  ListarComponent,
+  PermissaoComponent,
+} from './components';
 
 export const PermitionRoutes: Routes = [
-  { path: 'permissao-cadastrar', component: CadastrarComponent },
-  { path: 'permissao-pesquisar', component: ListarComponent },
+  {
+    path: 'permissao',
+    component: PermissaoComponent,
+    children: [
+      { path: 'cadastrar', component: CadastrarComponent },
+      { path: 'pesquisar', component: ListarComponent },
+    ],
+  },
 ];
 
 @NgModule({

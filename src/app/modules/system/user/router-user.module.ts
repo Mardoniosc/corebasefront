@@ -2,11 +2,21 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 
-import { CadastrarComponent, ListarComponent } from './components';
+import {
+  CadastrarComponent,
+  ListarComponent,
+  UsuarioComponent,
+} from './components';
 
 export const UserRoutes: Routes = [
-  { path: 'usuario/cadastrar', component: CadastrarComponent },
-  { path: 'usuario/pesquisar', component: ListarComponent },
+  {
+    path: 'usuario',
+    component: UsuarioComponent,
+    children: [
+      { path: 'cadastrar', component: CadastrarComponent },
+      { path: 'pesquisar', component: ListarComponent },
+    ],
+  },
 ];
 
 @NgModule({

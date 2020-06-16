@@ -4,12 +4,16 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { LoginComponent, ForgotComponent } from './components';
+import {
+  LoginComponent,
+  ForgotComponent,
+  AutenticacaoComponent,
+} from './components';
 
 import { SharedModule } from '../../shared';
 
 @NgModule({
-  declarations: [LoginComponent, ForgotComponent],
+  declarations: [LoginComponent, ForgotComponent, AutenticacaoComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

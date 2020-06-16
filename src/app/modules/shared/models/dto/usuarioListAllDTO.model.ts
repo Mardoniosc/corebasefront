@@ -6,4 +6,5 @@ export interface UsuarioListAllDTO {
   login: string;
   dataNascimento: Date;
   imagem: string;
+  perfil?: string;
 }

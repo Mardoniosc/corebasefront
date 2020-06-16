@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { UsuarioListAllDTO, UsuarioNewDTO } from '../../models';
+import { UsuarioListAllDTO, UsuarioNewDTO, Usuario } from '../../models';
 import { API_CONFIG } from '../../config';
 
 @Injectable({
@@ -14,6 +14,10 @@ export class UsuarioService {
 
   getAll(): Observable<UsuarioListAllDTO[]> {
     return this.http.get<UsuarioListAllDTO[]>(API_CONFIG.baseUrl + this.PATH);
+  }
+
+  getUserById(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${API_CONFIG.baseUrl + this.PATH}/${id}`);
   }
 
   insert(usuario: UsuarioNewDTO): Observable<any> {

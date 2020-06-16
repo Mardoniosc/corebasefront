@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Usuario, Permissoes, PerfilPermissaoDTO } from '../../models';
 import { StorangeService, PerfilPermissaoService } from '../../services';
+import { API_CONFIG } from '../../config';
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +11,8 @@ import { StorangeService, PerfilPermissaoService } from '../../services';
 })
 export class MenuComponent implements OnInit {
   usuario = {} as Usuario;
+
+  baseUrlServidor = API_CONFIG.baseUrl;
 
   permissoes: Permissoes[];
 

@@ -6,6 +6,7 @@ import {
   StorangeService,
   PerfilPermissaoService,
   UsuarioService,
+  PerfilService,
 } from './services';
 import {
   BarraDeMenuComponent,
@@ -21,6 +22,7 @@ import {
     StorangeService,
     PerfilPermissaoService,
     UsuarioService,
+    PerfilService,
   ],
   exports: [BarraDeMenuComponent, NotFoundComponent],
 })

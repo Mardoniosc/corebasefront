@@ -23,4 +23,18 @@ export class UsuarioService {
   insert(usuario: UsuarioNewDTO): Observable<any> {
     return this.http.post(API_CONFIG.baseUrl + this.PATH, usuario);
   }
+
+  updateUser(usuario: UsuarioListAllDTO): Observable<any> {
+    return this.http.put(
+      `${API_CONFIG.baseUrl + this.PATH}/${usuario.id}`,
+      usuario,
+    );
+  }
+
+  updateStatus(usuario: UsuarioListAllDTO): Observable<any> {
+    return this.http.patch(
+      `${API_CONFIG.baseUrl + this.PATH}/status/${usuario.id}`,
+      usuario,
+    );
+  }
 }

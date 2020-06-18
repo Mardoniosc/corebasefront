@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Forgot, Erro, LoginService } from 'src/app/modules/shared';
+import {
+  Forgot,
+  ErroDTO,
+  ErroGeral,
+  LoginService,
+} from 'src/app/modules/shared';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -20,7 +25,9 @@ export class ForgotComponent implements OnInit {
 
   forgot = {} as Forgot;
 
-  erro = {} as Erro;
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO[];
 
   carregando = false;
 
@@ -69,11 +76,9 @@ export class ForgotComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         (err) => {
-          this.erro = err.error;
-          const msg = this.erro.message;
-          const title = `Erro ${this.erro.status} ${this.erro.error}`;
-          this.snackBar.open(msg, title, { duration: 3000 });
-          this.carregando = false;
+          this.erroGeral = err.error;
+          const title = `Erro ${this.erroGeral.status}`;
+          this.snackBar.open(this.erroGeral.message, title, { duration: 3000 });
         },
       ),
     );

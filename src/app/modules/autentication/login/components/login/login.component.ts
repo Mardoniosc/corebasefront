@@ -3,7 +3,12 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login, LoginService, Erro } from 'src/app/modules/shared';
+import {
+  Login,
+  LoginService,
+  ErroGeral,
+  ErroDTO,
+} from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -16,7 +21,9 @@ export class LoginComponent implements OnInit {
 
   login = {} as Login;
 
-  erro = {} as Erro;
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO[];
 
   form: FormGroup;
 
@@ -59,13 +66,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         },
         (err) => {
-          this.erro = err.error;
-          const msg = this.erro.message;
-          const title = `Erro ${this.erro.status} ${this.erro.error}`;
-          this.snackBar.open(msg, title, { duration: 3000 });
+          this.erroGeral = err.error;
+          const title = `Erro ${this.erroGeral.status}`;
+          this.snackBar.open(this.erroGeral.message, title, { duration: 3000 });
         },
       ),
     );
-    //
   }
 }

@@ -5,7 +5,12 @@ import { PerfilService, UsuarioService } from 'src/app/modules/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { PerfilDTO, Erro, UsuarioNewDTO } from '../../../../shared/models';
+import {
+  PerfilDTO,
+  ErroGeral,
+  ErroDTO,
+  UsuarioNewDTO,
+} from '../../../../shared/models';
 
 @Component({
   selector: 'app-cadastrar',
@@ -15,7 +20,9 @@ import { PerfilDTO, Erro, UsuarioNewDTO } from '../../../../shared/models';
 export class CadastrarComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
-  erro = {} as Erro;
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO[];
 
   usuarioNew = {} as UsuarioNewDTO;
 
@@ -62,10 +69,14 @@ export class CadastrarComponent implements OnInit {
           this.perfils = data;
         },
         (err) => {
-          this.erro = err.error;
-          const msg = this.erro.message;
-          const title = `Erro ${this.erro.status} ${this.erro.error}`;
-          this.snackBar.open(msg, title, { duration: 3000 });
+          this.erroGeral = err.error;
+          this.erroGeral.errors.forEach((e) => {
+            this.erroDTO.push(e);
+          });
+          this.erroDTO.forEach((x) => {
+            const title = `Erro ${this.erroGeral.status} campo ${x.fieldName}`;
+            this.snackBar.open(x.message, title, { duration: 3000 });
+          });
         },
       ),
     );
@@ -98,10 +109,14 @@ export class CadastrarComponent implements OnInit {
           this.router.navigate(['/usuario/pesquisar']);
         },
         (err) => {
-          this.erro = err.error;
-          const msg = this.erro.message;
-          const title = `Erro ${this.erro.status} ${this.erro.error}`;
-          this.snackBar.open(msg, title, { duration: 3000 });
+          this.erroGeral = err.error;
+          this.erroGeral.errors.forEach((e) => {
+            this.erroDTO.push(e);
+          });
+          this.erroDTO.forEach((x) => {
+            const title = `Erro ${this.erroGeral.status} campo ${x.fieldName}`;
+            this.snackBar.open(x.message, title, { duration: 3000 });
+          });
         },
       ),
     );

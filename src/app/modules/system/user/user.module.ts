@@ -19,13 +19,13 @@ import { SharedModule, MenuModule } from '../../shared';
   declarations: [CadastrarComponent, ListarComponent, UsuarioComponent],
   imports: [
     CommonModule,
-    SharedModule,
     MenuModule,
     RouterModule,
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   providers: [MatDatepickerModule],
 })

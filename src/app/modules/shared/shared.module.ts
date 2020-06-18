@@ -13,9 +13,16 @@ import {
   MenuModule,
   NotFoundComponent,
 } from './components';
+import { MascaraDirective } from './directives';
+import { CpfPipe } from './pipe';
 
 @NgModule({
-  declarations: [BarraDeMenuComponent, NotFoundComponent],
+  declarations: [
+    BarraDeMenuComponent,
+    NotFoundComponent,
+    MascaraDirective,
+    CpfPipe,
+  ],
   imports: [CommonModule, MenuModule],
   providers: [
     LoginService,
@@ -24,6 +31,6 @@ import {
     UsuarioService,
     PerfilService,
   ],
-  exports: [BarraDeMenuComponent, NotFoundComponent],
+  exports: [BarraDeMenuComponent, NotFoundComponent, MascaraDirective, CpfPipe],
 })
 export class SharedModule {}

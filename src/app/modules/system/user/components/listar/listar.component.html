@@ -47,7 +47,7 @@
                                 <img *ngIf="user.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ user.imagem }}" style="width: 40px; height: 40px;"/>
                                 <img *ngIf="!user.imagem" alt="image" class="img-circle" src="../../../../../../assets/img/user-default.png" style="width: 40px; height: 40px;"/>
                               </td>
-                              <td><small>{{ user.cpf }}</small></td>
+                              <td><small>{{ user.cpf | cpfMask }}</small></td>
                               <td> {{ user.dataNascimento | date: 'dd/MM/y' }} </td>
                               <td><small> {{ user.email }} </small></td>
                               <td>
@@ -98,7 +98,7 @@
                 <div class="modal-body">
                     <p> <strong>Data de Nascimento:</strong> {{ userDetalhes.dataNascimento | date: 'dd/MM/y' }}</p>
                     <p> <strong>Login: </strong> {{ userDetalhes.login }}</p>
-                    <p> <strong>CPF: </strong> {{ userDetalhes.cpf }}</p>
+                    <p> <strong>CPF: </strong> {{ userDetalhes.cpf | cpfMask }}</p>
                     <p> <strong>Cadastrado  </strong>em: {{ userDetalhes.criado | date: 'dd/MM/y' }}</p>
                     <p> <strong>Status: </strong> {{ userDetalhes.status === 1 ? 'Ativado' : 'Desativado' }}</p>
 

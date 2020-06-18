@@ -98,10 +98,8 @@ export class ListarComponent implements OnInit {
     }
     this.perfilPermi = response;
     if (this.perfilPermi.status === 1) {
-      this.perfilPermi.status = 0;
       this.status = 'desetivar';
     } else {
-      this.perfilPermi.status = 1;
       this.status = 'ativar';
     }
 

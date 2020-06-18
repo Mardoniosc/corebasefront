@@ -19,7 +19,7 @@ import {
 export class CadastrarComponent implements OnInit {
   erroGeral = {} as ErroGeral;
 
-  erroDTO: ErroDTO[];
+  erroDTO: ErroDTO;
 
   private subscriptions: Subscription[] = [];
 
@@ -68,11 +68,9 @@ export class CadastrarComponent implements OnInit {
         (err) => {
           this.erroGeral = err.error;
           this.erroGeral.errors.forEach((e) => {
-            this.erroDTO.push(e);
-          });
-          this.erroDTO.forEach((x) => {
-            const title = `Erro ${this.erroGeral.status} campo ${x.fieldName}`;
-            this.snackBar.open(x.message, title, { duration: 3000 });
+            this.erroDTO = e;
+            const title = `Erro ${this.erroGeral.status} campo ${e.fieldName}`;
+            this.snackBar.open(e.message, title, { duration: 3000 });
           });
         },
       ),

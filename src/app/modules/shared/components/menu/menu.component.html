@@ -31,7 +31,7 @@
             </a>
             <ul class="nav nav-second-level" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')">
               <li *ngFor="let item2 of permissoesFiltradas">
-                <a *ngIf="item.id == item2.permissaoPai?.id" href="{{ item2.url }}">{{ item2.descricao + ' ' + item.descricao }}</a>
+                <a *ngIf="item.id == item2.permissaoPai?.id" href="{{ item2.url }}">{{ item2.descricao }}</a>
               </li>
             </ul>
           </li>

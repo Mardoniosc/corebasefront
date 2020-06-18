@@ -21,4 +21,13 @@ export class PerfilPermissaoService {
       `${API_CONFIG.baseUrl + this.PATH}/${perfilID}/${permissaoId}`,
     );
   }
+
+  update(perfilPermissao: PerfilPermissaoDTO): Observable<any> {
+    return this.http.put(
+      `${API_CONFIG.baseUrl + this.PATH}/${perfilPermissao.perfilId}/${
+        perfilPermissao.permissaoId
+      }`,
+      perfilPermissao,
+    );
+  }
 }

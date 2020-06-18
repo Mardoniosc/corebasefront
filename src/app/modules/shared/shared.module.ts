@@ -7,6 +7,7 @@ import {
   PerfilPermissaoService,
   UsuarioService,
   PerfilService,
+  PermissaoService,
 } from './services';
 import {
   BarraDeMenuComponent,
@@ -30,6 +31,7 @@ import { CpfPipe } from './pipe';
     PerfilPermissaoService,
     UsuarioService,
     PerfilService,
+    PermissaoService,
   ],
   exports: [BarraDeMenuComponent, NotFoundComponent, MascaraDirective, CpfPipe],
 })

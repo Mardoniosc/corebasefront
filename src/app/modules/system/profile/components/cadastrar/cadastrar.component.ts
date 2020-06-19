@@ -63,7 +63,9 @@ export class CadastrarComponent implements OnInit {
             buttons: [false],
             timer: 2000,
           });
-          this.router.navigate(['/perfil/pesquisar']);
+          setTimeout(() => {
+            this.refresh();
+          }, 1900);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -80,5 +82,9 @@ export class CadastrarComponent implements OnInit {
         },
       ),
     );
+  }
+
+  refresh() {
+    window.location.reload();
   }
 }

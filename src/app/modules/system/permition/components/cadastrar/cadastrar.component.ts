@@ -53,7 +53,7 @@ export class CadastrarComponent implements OnInit {
     this.reloadPermissoesPerfil();
   }
 
-  reloadPermissoesPerfil() {
+  reloadPermissoesPerfil(): void {
     this.listarTodosPerfils();
     this.listarTodasPermissoes();
     this.listarTodasPerfilHasPermissao();
@@ -168,10 +168,12 @@ export class CadastrarComponent implements OnInit {
       if (!resultado) {
         return permissao;
       }
+
+      return null;
     });
   }
 
-  cadastrar() {
+  cadastrar(): void {
     if (this.perfilSelecionadoTrue === false) {
       const msg = 'Nenhum Perfil selecionado para cadastro';
       this.snackBar.open(msg, 'Info', { duration: 5000 });
@@ -198,11 +200,12 @@ export class CadastrarComponent implements OnInit {
       buttons: [false],
       timer: 2000,
     });
-
-    this.refresh();
+    setTimeout(() => {
+      this.refresh();
+    }, 1900);
   }
 
-  refresh() {
+  refresh(): void {
     window.location.reload();
   }
 }

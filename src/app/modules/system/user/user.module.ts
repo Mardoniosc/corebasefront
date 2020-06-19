@@ -12,11 +12,17 @@ import {
   CadastrarComponent,
   ListarComponent,
   UsuarioComponent,
+  PerfilUserComponent,
 } from './components';
 import { SharedModule, MenuModule } from '../../shared';
 
 @NgModule({
-  declarations: [CadastrarComponent, ListarComponent, UsuarioComponent],
+  declarations: [
+    CadastrarComponent,
+    ListarComponent,
+    UsuarioComponent,
+    PerfilUserComponent,
+  ],
   imports: [
     CommonModule,
     MenuModule,

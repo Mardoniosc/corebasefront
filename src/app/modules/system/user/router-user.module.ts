@@ -6,6 +6,7 @@ import {
   CadastrarComponent,
   ListarComponent,
   UsuarioComponent,
+  PerfilUserComponent,
 } from './components';
 
 export const UserRoutes: Routes = [
@@ -15,6 +16,7 @@ export const UserRoutes: Routes = [
     children: [
       { path: 'cadastrar', component: CadastrarComponent },
       { path: 'pesquisar', component: ListarComponent },
+      { path: 'perfil', component: PerfilUserComponent },
     ],
   },
 ];

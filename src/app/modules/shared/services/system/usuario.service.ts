@@ -31,6 +31,13 @@ export class UsuarioService {
     );
   }
 
+  updateImage(file: FormData, id: number): Observable<any> {
+    return this.http.post(
+      `${API_CONFIG.baseUrl + this.PATH}/picture/${id}`,
+      file,
+    );
+  }
+
   updateStatus(usuario: UsuarioListAllDTO): Observable<any> {
     return this.http.patch(
       `${API_CONFIG.baseUrl + this.PATH}/status/${usuario.id}`,

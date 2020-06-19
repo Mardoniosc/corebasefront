@@ -20,13 +20,69 @@
                         </div>
                     </div>
                     <div class="ibox-content" style="display: flex; align-items: center; flex-direction: column;">
-                      <img *ngIf="usuario.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ usuario.imagem }}" style="width: 150px; height: 150px;"/>
-                      <img *ngIf="!usuario.imagem" alt="image" class="img-circle" src="../../../../../assets/img/user-default.png" style="width: 150px; height: 150px;"/>
-                      <small>Clique na imagem para atualizar</small>
-                      <h1>Nome: {{ usuario.nome }}</h1>
-                      <h1>E-amil: {{ usuario.email }}</h1>
-                      <h1>CPF: {{ usuario.cpf | cpfMask }}</h1>
-                      <h1>Data de Nascimento: {{ usuario.dataNascimento | date: 'dd/MM/y' }}</h1>
+                      <div class="row m-b-lg m-t-lg">
+                        <div class="col-md-9">
+
+                            <div class="profile-image">
+                              <form class="form-horizontal" [formGroup]="form">                                <label for="avatar" style="cursor: pointer;">
+                                  <img *ngIf="usuario.imagem" for='imagemProfile' alt="image" class="img-circle circle-border m-b-md" src="{{baseUrlServidor}}/{{ usuario.imagem }}" style="width: 100px; height: 100px;"/>
+                                  <img *ngIf="!usuario.imagem" alt="image" class="img-circle circle-border m-b-md" src="../../../../../assets/img/user-default.png" style="width: 130px; height: 130px;"/>
+                                  <input
+                                    formControlName="file"
+                                    type="file"
+                                    accept="image/*"
+                                    name="avatar"
+                                    id="avatar"
+                                    style="display: none;"
+                                    (change)="onFileSelect($event)"
+                                  >
+                                </label>
+                                <p>Clique na imagem para atualizar foto de perfil</p>
+                                <button type="button" (click)="atualizarImagePerfil()" class="btn btn-primary">Atualizar</button>
+                              </form>
+                            </div>
+                            <div class="profile-info">
+                                <div class="col-md-12">
+                                    <div>
+                                        <h2 class="no-margins">
+                                            {{ usuario.nome | uppercase }}
+                                        </h2>
+                                        <h4>{{ usuario.perfil?.nome | uppercase }}</h4>
+
+                                          <table class="table small m-b-xs">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>E-mail</strong>
+                                                </td>
+                                                <td>
+                                                  {{ usuario.email }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Data de Nascimento</strong>
+                                                </td>
+                                                <td>
+                                                    {{ usuario.dataNascimento | date: 'dd/MM/y' }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>CPF</strong>
+                                                </td>
+                                                <td>
+                                                    {{ usuario.cpf | cpfMask }}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                     </div>
                 </div>
             </div>

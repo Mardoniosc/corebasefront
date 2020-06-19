@@ -76,6 +76,7 @@ export class ForgotComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         (err) => {
+          this.carregando = false;
           this.erroGeral = err.error;
           const title = `Erro ${this.erroGeral.status}`;
           this.snackBar.open(this.erroGeral.message, title, { duration: 3000 });

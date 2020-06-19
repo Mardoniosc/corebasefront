@@ -1,13 +1,96 @@
 <div id="wrapper">
-  <app-menu></app-menu>
-
-    <div id="page-wrapper" class="gray-bg">
+  <app-menu>  </app-menu>    <div id="page-wrapper" class="gray-bg">
       <div class="row border-bottom">
         <!-- NAVE -->
-        <app-barra-de-menu></app-barra-de-menu>
-      </div>
+        <app-barra-de-menu>        </app-barra-de-menu>
+      </div>      <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Formulário para preenchimento &nbsp;&nbsp;<b class="text-danger">
+                          <i class='fa fa-exclamation'>                        </i> Campos obrigatórios</b>
+                        </h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up">                                </i>
+                            </a>
+                        </div>
+                    </div>
 
-      <h1>Permissão Cadastrar</h1>
+                    <div class="ibox-content">
+                      <form id="formValidacao" action="/permissao/cadastrar">
+                        <div class="form-group">
+                              <label class="col-sm-2 control-label">Perfil <i class='fa fa-exclamation text-danger'></i>
+                              </label>
+                                <div class="col-sm-10">
+
+                                          <mat-card>
+                                            <mat-card-content>
+                                                <mat-radio-group
+                                                    aria-labelledby="example-radio-group-label"
+                                                    class="radio-group-permissao">
+                                                    <mat-radio-button *ngFor="let perfil of perfils"
+                                                        class="radio-button-permissao"
+                                                        [value]="perfil.id"
+                                                        #perfilId
+                                                        (click)="perfilSelecionado(perfilId.value)"
+                                                        style="margin-right: 5px;"
+                                                    >
+                                                        {{ perfil.nome }}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </mat-card-content>
+                                        </mat-card>
+
+                                </div>
+                            </div><div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label">Permissões <i class='fa fa-exclamation text-danger'></i>
+                            </label>
+                                <div class="col-sm-10">
+                                        <mat-card>
+                                          <mat-card-content>
+                                                  <section class="section-checkbox" *ngIf="perfilSelecionadoTrue">
+                                                      <mat-checkbox
+                                                          class="margin-checkbox"
+                                                          *ngFor="let permissao of permissoes"
+                                                          [value]="permissao.id"
+                                                          #permissaoId
+                                                          (click)="checkBoxSelecionado(permissaoId.value)"
+                                                          style="margin-right: 5px;"
+                                                          >
+
+                                                          {{ permissao.descricao }}
+                                                      </mat-checkbox>
+                                                  </section>
+
+                                                  <p *ngIf="perfilSelecionadoTrue === false">
+                                                    <strong>
+                                                      Selecione um pefil para adicionar permissões
+                                                    </strong>
+                                                  </p>
+                                                  <p *ngIf="permissoes?.length === 0">
+                                                    <strong>
+                                                      Todas as pemissões já estão cadastradas para este perfil
+                                                    </strong>
+                                                  </p>
+                                          </mat-card-content>
+                                      </mat-card>
+                                </div>
+                            </div>                            <div class="hr-line-dashed">                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-w-m btn-warning" type="submit" style="margin-top: 20px; margin-right: 20px;">
+                                      <i class="fa fa-close">                                    </i> Limpar</button>
+                                    <button class="btn btn-w-m btn-primary" (click)="cadastrar()" type="button" style="margin-top: 20px;">
+                                      <i class="fa fa-check">                                    </i> Cadastrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-</div>
+    </div></div>

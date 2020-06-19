@@ -30,4 +30,8 @@ export class PerfilPermissaoService {
       perfilPermissao,
     );
   }
+
+  insert(perfilPermissao: PerfilPermissaoDTO): Observable<any> {
+    return this.http.post(API_CONFIG.baseUrl + this.PATH, perfilPermissao);
+  }
 }

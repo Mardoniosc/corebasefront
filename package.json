@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "sudo ng serve --proxy-config proxy.config.js",
-    "postinstall": "ng build --aot --prod",
+    "heroku-postbuild": "ng build --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -64,7 +64,7 @@
     "typescript": "~3.8.3"
   },
   "engines": {
-    "node": "10.13.0",
-    "npm": "6.4.1"
+    "node": "12.17.0",
+    "npm": "6.14.5"
   }
 }

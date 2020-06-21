@@ -1,7 +1,10 @@
 const proxy = [
   {
     context: '/api',
-    target: 'http://localhost:8080',
+    target: 'https://core-base-springboot-api.herokuapp.com',
+    secure: false,
+    changeOrigin: true,
+    logLevel: 'debug',
     pathRewrite: {'^/api' : ''}
   }
 ];

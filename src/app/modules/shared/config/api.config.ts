@@ -1,3 +1,4 @@
 export const API_CONFIG = {
-  baseUrl: '/api', // http://localhost:8080
+  // baseUrl: '/api',
+  baseUrl: 'https://core-base-springboot-api.herokuapp.com',
 };

@@ -14,6 +14,9 @@ export class LoginService {
     return this.http.post<Usuario>(
       `${API_CONFIG.baseUrl + this.PATH}/login`,
       login,
+      {
+        headers: { 'Access-Control-Allow-Origin': '*' },
+      },
     );
   }
 

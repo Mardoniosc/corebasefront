@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "sudo ng serve --proxy-config proxy.config.js",
+    "postinstall": "ng build --aot --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -22,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
     "@types/sweetalert": "^2.0.4",
+    "express": "^4.17.1",
     "rxjs": "~6.5.4",
     "sweetalert": "^2.1.2",
     "ts-md5": "^1.2.7",
@@ -60,5 +62,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
+  },
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
   }
 }

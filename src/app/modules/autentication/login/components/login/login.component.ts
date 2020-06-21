@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
         },
         (err) => {
+          console.log(err);
           this.erroGeral = err.error;
           const title = `Erro ${this.erroGeral.status}`;
           this.snackBar.open(this.erroGeral.message, title, { duration: 3000 });

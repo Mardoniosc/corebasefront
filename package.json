@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "sudo ng serve --proxy-config proxy.config.js",
-    "heroku-postbuild": "ng build --prod",
+    "start": "node server.js",
+    "postinstall": "ng build --oat --prod",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

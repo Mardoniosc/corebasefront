@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cadastrar',
@@ -194,10 +194,10 @@ export class CadastrarComponent implements OnInit {
       this.cadastrarPerfilHasPermissao(this.perfilHasPermissao);
     });
     const msg = 'Permissões cadastradas com sucesso!';
-    swal(` `, {
+    Swal.fire({
       title: msg,
       icon: 'success',
-      buttons: [false],
+      showConfirmButton: false,
       timer: 2000,
     });
     setTimeout(() => {

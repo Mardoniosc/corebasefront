@@ -6,7 +6,7 @@ import {
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
 import { API_CONFIG } from 'src/app/modules/shared/config';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar',
@@ -48,21 +48,23 @@ export class ListarComponent implements OnInit {
   ativarDesativarUsuario(usuario: UsuarioListAllDTO) {
     const status = usuario.status === 1 ? 'desativar' : 'ativar';
     this.usuario = usuario;
-    swal({
+    Swal.fire({
       title: `Deseja ${status} usuario: ${usuario.nome}`,
       icon: 'warning',
-      closeOnClickOutside: true,
-      buttons: [true, 'Confirma'],
-    }).then((value) => {
-      if (value) {
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: `Sim, confirmar!`,
+    }).then((result) => {
+      if (result.value) {
         this.usuario.status = status === 'ativar' ? 1 : 0;
         this.usuarioService.updateStatus(this.usuario).subscribe(
           (data) => {
             this.carregarUsuarios();
-            swal(`Usuário ${usuario.nome} ${status} com sucesso!`, {
+            Swal.fire({
               title: status === 'ativar' ? 'Ativado!' : 'Desativado',
+              text: `Usuário ${usuario.nome} ${status} com sucesso!`,
               icon: 'success',
-              buttons: [false],
+              showConfirmButton: false,
               timer: 2000,
             });
           },

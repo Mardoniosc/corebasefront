@@ -5,7 +5,7 @@ import { PerfilService, UsuarioService } from 'src/app/modules/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import {
   PerfilDTO,
   ErroGeral,
@@ -106,10 +106,10 @@ export class CadastrarComponent implements OnInit {
         (data) => {
           const msg = 'Usuário cadastradas com sucesso!';
 
-          swal(` `, {
+          Swal.fire({
             title: msg,
             icon: 'success',
-            buttons: [false],
+            showConfirmButton: false,
             timer: 2000,
           });
           setTimeout(() => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -57,10 +57,10 @@ export class CadastrarComponent implements OnInit {
     this.subscriptions.push(
       this.perfilService.insert(this.perfil).subscribe(
         (data) => {
-          swal(`Perfil ${this.perfil.nome}`, {
+          Swal.fire({
             title: 'Cadastrado!',
             icon: 'success',
-            buttons: [false],
+            showConfirmButton: false,
             timer: 2000,
           });
           setTimeout(() => {

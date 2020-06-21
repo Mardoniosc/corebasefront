@@ -24,7 +24,6 @@
     "@angular/router": "~9.1.9",
     "express": "^4.17.1",
     "rxjs": "~6.5.4",
-    "sweetalert": "^2.1.2",
     "sweetalert2": "^9.15.1",
     "ts-md5": "^1.2.7",
     "tslib": "^1.10.0",

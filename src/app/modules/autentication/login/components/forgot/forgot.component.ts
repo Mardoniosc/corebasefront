@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-forgot',
@@ -68,7 +68,7 @@ export class ForgotComponent implements OnInit {
       this.loginService.forgot(this.forgot).subscribe(
         (data) => {
           this.carregando = false;
-          swal(
+          Swal.fire(
             'Gerado nova senha com sucesso!',
             'Favor verificar seu e-mail',
             'success',

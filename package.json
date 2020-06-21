@@ -1,6 +1,6 @@
 {
   "name": "corebasef",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "sudo ng serve --proxy-config proxy.config.js",

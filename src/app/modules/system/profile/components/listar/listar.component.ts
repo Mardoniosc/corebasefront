@@ -8,7 +8,7 @@ import {
   PerfilPermissaoDTO,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar',
@@ -98,25 +98,26 @@ export class ListarComponent implements OnInit {
     }
     this.perfilPermi = response;
     if (this.perfilPermi.status === 1) {
-      this.status = 'desetivar';
+      this.status = 'desativar';
     } else {
       this.status = 'ativar';
     }
 
-    swal({
+    Swal.fire({
       title: `Deseja ${this.status} permissao?`,
       icon: 'warning',
-      closeOnClickOutside: true,
-      buttons: [true, 'Confirma'],
-    }).then((value) => {
-      if (value) {
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: `Sim, ${this.status}!`,
+    }).then((result) => {
+      if (result.value) {
         this.perfilPermi.status = this.status === 'ativar' ? 1 : 0;
         this.perfilPermissaoService.update(this.perfilPermi).subscribe(
           (data) => {
-            swal('   ', {
+            Swal.fire({
               title: this.status === 'ativar' ? 'Ativado!' : 'Desativado',
               icon: 'success',
-              buttons: [false],
+              showConfirmButton: false,
               timer: 1000,
             });
           },

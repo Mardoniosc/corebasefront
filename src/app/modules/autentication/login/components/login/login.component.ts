@@ -9,6 +9,7 @@ import {
   ErroGeral,
   ErroDTO,
   UserLoggedService,
+  StorangeService,
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService,
+    private storangeService: StorangeService,
     private snackBar: MatSnackBar,
     private userLoggedService: UserLoggedService,
   ) {}
@@ -73,8 +75,14 @@ export class LoginComponent implements OnInit {
     this.subscriptions.push(
       this.loginService.logar(this.login).subscribe(
         (data) => {
-          localStorage.setItem('@corebase:user', JSON.stringify(data));
-          this.refresh();
+          if (data.status === 1) {
+            this.storangeService.setLocalUser(data);
+            this.refresh();
+          } else {
+            this.snackBar.open('Usuario Desativado', 'Erro', {
+              duration: 4000,
+            });
+          }
         },
         (err) => {
           this.erroGeral = err.error;

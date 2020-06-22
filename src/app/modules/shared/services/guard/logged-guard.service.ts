@@ -12,9 +12,11 @@ export class AuthGuardService implements CanActivate {
   canActivate(): boolean {
     const userLogged = this.storageService.getLocalUser();
     if (userLogged) {
-      return true;
+      if (userLogged.status === 1) {
+        return true;
+      }
     }
-
+    this.storageService.setLocalUser(null);
     this.router.navigate(['/login']);
     return false;
   }

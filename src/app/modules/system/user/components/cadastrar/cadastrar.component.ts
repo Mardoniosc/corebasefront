@@ -13,6 +13,8 @@ import {
   UsuarioNewDTO,
 } from '../../../../shared/models';
 
+import { CpfValidator } from '../../../../shared/validators';
+
 @Component({
   selector: 'app-cadastrar',
   templateUrl: './cadastrar.component.html',
@@ -43,7 +45,7 @@ export class CadastrarComponent implements OnInit {
 
   startDate = new Date(2000, 1, 1);
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
@@ -55,7 +57,7 @@ export class CadastrarComponent implements OnInit {
   criarForm(): void {
     this.form = this.fb.group({
       nome: ['', Validators.required],
-      cpf: ['', Validators.required],
+      cpf: ['', [Validators.required, CpfValidator]],
       datanascimento: ['', Validators.required],
       email: ['', Validators.email],
       senha: ['', Validators.required],
@@ -63,7 +65,7 @@ export class CadastrarComponent implements OnInit {
     });
   }
 
-  carregaPerfils() {
+  carregaPerfils(): void {
     this.subscriptions.push(
       this.perfilService.getAll().subscribe(
         (data) => {
@@ -83,13 +85,12 @@ export class CadastrarComponent implements OnInit {
     );
   }
 
-  cadastrarUsuario() {
+  cadastrarUsuario(): void {
     if (this.form.invalid) {
-      this.snackBar.open(
-        'Preenchimento invalido do formulário de cadastro',
-        'Erro no preencimento',
-        { duration: 3000 },
-      );
+      this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
+        duration: 3000,
+      });
+      this.toucheCamposFormulario();
       return;
     }
 
@@ -100,7 +101,6 @@ export class CadastrarComponent implements OnInit {
     this.usuarioNew.criado = new Date();
     this.usuarioNew.login = this.usuarioNew.email;
     this.usuarioNew.status = 1;
-    console.log(this.usuarioNew);
     this.subscriptions.push(
       this.usuarioService.insert(this.usuarioNew).subscribe(
         (data) => {
@@ -130,7 +130,16 @@ export class CadastrarComponent implements OnInit {
     );
   }
 
-  refresh() {
+  toucheCamposFormulario(): void {
+    this.form.get('cpf').markAsTouched();
+    this.form.get('email').markAsTouched();
+    this.form.get('nome').markAsTouched();
+    this.form.get('senha').markAsTouched();
+    this.form.get('perfil').markAsTouched();
+    this.form.get('datanascimento').markAsTouched();
+  }
+
+  refresh(): void {
     window.location.reload();
   }
 }

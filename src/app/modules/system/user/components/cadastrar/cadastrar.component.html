@@ -25,13 +25,17 @@
                             <div class="form-group"><label class="col-sm-2 control-label">Nome <i class='fa fa-exclamation text-danger'></i></label>
                                 <div class="col-sm-10">
                                     <div class="input-group m-b"><span class="input-group-addon"><i class='fa fa-vcard'></i></span>
-                                        <input type="text" formControlName="nome" class="form-control" name="nome" ></div>
+                                      <input type="text" formControlName="nome" class="form-control" name="nome" ></div>
+                                      <small *ngIf="form.get('nome').valid && form.get('nome').touched" class="form-text text-success" >ok</small>
+                                      <small *ngIf="!form.get('nome').valid && form.get('nome').touched"class="form-text text-danger" >Campo nome requerido</small>
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">CPF <i class='fa fa-exclamation text-danger'></i></label>
                                 <div class="col-sm-10">
                                     <div class="input-group m-b"><span class="input-group-addon"><i class='fa fa-id-card'></i></span>
                                     <input type="text" formControlName="cpf" class="form-control" name="cpf" mascara="999.999.999-99" ></div>
+                                    <small *ngIf="form.get('cpf').valid && form.get('cpf').touched" class="form-text text-success" >ok</small>
+                                    <small *ngIf="!form.get('cpf').valid && form.get('cpf').touched"class="form-text text-danger" >CPF inválido</small>
                                 </div>
                             </div>
                             <div class="form-group"><label class="col-sm-2 control-label">Data de Nasc. <i class='fa fa-exclamation text-danger'></i></label>
@@ -49,7 +53,9 @@
                             <div class="form-group"><label class="col-sm-2 control-label">Email <i class='fa fa-exclamation text-danger'></i></label>
                                 <div class="col-sm-10">
                                     <div class="input-group m-b"><span class="input-group-addon">@</span>
-                                        <input type="email" formControlName="email" class="form-control" name="email" >
+                                      <input type="email" formControlName="email" class="form-control" name="email" >
+                                      <small *ngIf="form.get('email').valid && form.get('email').touched" class="form-text text-success" >ok</small>
+                                      <small *ngIf="!form.get('email').valid && form.get('email').touched"class="form-text text-danger" >E-mail inválido</small>
                                     </div>
                                 </div>
                             </div>
@@ -59,6 +65,8 @@
                               <div class="col-sm-10">
                                   <div class="input-group m-b"><span class="input-group-addon"><i class='fa fa-eye-slash'></i></span>
                                       <input type="password" formControlName="senha" class="form-control" name="senha" >
+                                      <small *ngIf="form.get('senha').valid && form.get('senha').touched" class="form-text text-success" >ok</small>
+                                      <small *ngIf="!form.get('senha').valid && form.get('senha').touched"class="form-text text-danger" >Senha requerida</small>
                                   </div>
                               </div>
                             </div>
@@ -68,6 +76,8 @@
                                         <select class='form-control' formControlName="perfil" name ='perfil_id'>
                                           <option *ngFor="let perfil of perfils" value='{{ perfil.id }}'>{{ perfil.nome }}</option>
                                         </select>
+                                        <small *ngIf="form.get('perfil').valid && form.get('perfil').touched" class="form-text text-success" >ok</small>
+                                        <small *ngIf="!form.get('perfil').valid && form.get('perfil').touched"class="form-text text-danger" >Perfil não selecionado</small>
                                     </div>
                                 </div>
                             </div>

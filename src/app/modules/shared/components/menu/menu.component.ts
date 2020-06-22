@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  logoff() {
+  logoff(): void {
     localStorage.clear();
   }
 
@@ -47,21 +47,18 @@ export class MenuComponent implements OnInit {
       this.subscriptions.push(
         this.perfilPermissaoService
           .getId(this.usuario.perfil.id, x.id)
-          .subscribe(
-            (data) => {
-              this.perfilPermissaoDTO = data;
-              if (this.perfilPermissaoDTO.status === 0) {
-                this.permissoesFiltradas = this.permissoesFiltradas.filter(
-                  (p) => {
-                    return p.id !== x.id;
-                  },
-                );
-                return data;
-              }
+          .subscribe((data) => {
+            this.perfilPermissaoDTO = data;
+            if (this.perfilPermissaoDTO.status === 0) {
+              this.permissoesFiltradas = this.permissoesFiltradas.filter(
+                (p) => {
+                  return p.id !== x.id;
+                },
+              );
               return data;
-            },
-            (err) => console.log(err),
-          ),
+            }
+            return data;
+          }),
       );
     });
   }

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -30,6 +32,7 @@ import { SharedModule, MenuModule } from '../../shared';
     MatCardModule,
     MatRadioModule,
     MatCheckboxModule,
+    ReactiveFormsModule,
   ],
 })
 export class PermitionModule {}

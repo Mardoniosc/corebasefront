@@ -8,6 +8,7 @@ import {
   LoginService,
   ErroGeral,
   ErroDTO,
+  UserLoggedService,
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private snackBar: MatSnackBar,
+    private userLoggedService: UserLoggedService,
   ) {}
 
   ngOnDestroy(): void {
@@ -40,6 +42,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.criarForm();
+    this.verificaUserLogged();
+  }
+
+  verificaUserLogged() {
+    const logado = this.userLoggedService.userLogged();
+
+    if (logado) {
+      this.router.navigate(['/dashboard']);
+    }
+    console.log('Usuário não logado');
   }
 
   criarForm(): void {
@@ -63,7 +75,7 @@ export class LoginComponent implements OnInit {
       this.loginService.logar(this.login).subscribe(
         (data) => {
           localStorage.setItem('@corebase:user', JSON.stringify(data));
-          this.router.navigate(['/dashboard']);
+          this.refresh();
         },
         (err) => {
           this.erroGeral = err.error;
@@ -86,5 +98,9 @@ export class LoginComponent implements OnInit {
         },
       ),
     );
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

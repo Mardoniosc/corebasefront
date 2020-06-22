@@ -38,6 +38,10 @@ export class MenuComponent implements OnInit {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
+  logoff() {
+    localStorage.clear();
+  }
+
   filtrarPermissoesStatus(): void {
     this.permissoes.forEach((x) => {
       this.subscriptions.push(

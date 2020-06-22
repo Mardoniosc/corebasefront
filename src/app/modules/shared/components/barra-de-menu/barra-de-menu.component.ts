@@ -9,4 +9,8 @@ export class BarraDeMenuComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  logoff() {
+    localStorage.clear();
+  }
 }

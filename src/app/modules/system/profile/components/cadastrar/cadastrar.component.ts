@@ -44,12 +44,16 @@ export class CadastrarComponent implements OnInit {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  cadastrarPerfil() {
+  cadastrarPerfil(): void {
     if (this.form.invalid) {
+      this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
+        duration: 3000,
+      });
+      this.toucheCamposFormulario();
       return;
     }
 
@@ -84,7 +88,11 @@ export class CadastrarComponent implements OnInit {
     );
   }
 
-  refresh() {
+  toucheCamposFormulario(): void {
+    this.form.get('nome').markAsTouched();
+  }
+
+  refresh(): void {
     window.location.reload();
   }
 }

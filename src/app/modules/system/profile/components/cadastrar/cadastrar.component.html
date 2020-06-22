@@ -27,7 +27,9 @@
                                 <div class="col-sm-10">
                                     <div class="input-group m-b"><span class="input-group-addon"><i class='fa fa-vcard'></i></span>
                                       <input type="text" formControlName="nome" class="form-control" name="nome" ></div>
-                                </div>
+                                      <small *ngIf="form.get('nome').valid && form.get('nome').touched" class="form-text text-success" >ok</small>
+                                      <small *ngIf="!form.get('nome').valid && form.get('nome').touched"class="form-text text-danger" >Nome do perfil requerida</small>
+                                  </div>
                             </div>
 
                             <div class="hr-line-dashed"></div>

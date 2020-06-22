@@ -10,12 +10,18 @@ import {
   ListarComponent,
   CadastrarComponent,
   PermissaoComponent,
+  CreateNewComponent,
 } from './components';
 
 import { SharedModule, MenuModule } from '../../shared';
 
 @NgModule({
-  declarations: [ListarComponent, CadastrarComponent, PermissaoComponent],
+  declarations: [
+    ListarComponent,
+    CadastrarComponent,
+    PermissaoComponent,
+    CreateNewComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

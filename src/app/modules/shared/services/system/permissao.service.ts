@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Permissoes } from '../../models';
+import { Permissoes, PermissaoDTO } from '../../models';
 import { API_CONFIG } from '../../config';
 
 @Injectable({
@@ -14,5 +14,9 @@ export class PermissaoService {
 
   getAll(): Observable<Permissoes[]> {
     return this.http.get<Permissoes[]>(API_CONFIG.baseUrl + this.PATH);
+  }
+
+  insert(permissao: PermissaoDTO): Observable<any> {
+    return this.http.post(API_CONFIG.baseUrl + this.PATH, permissao);
   }
 }

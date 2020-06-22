@@ -7,11 +7,13 @@ import {
   ListarComponent,
   PermissaoComponent,
 } from './components';
+import { AuthGuardService } from '../../shared';
 
 export const PermitionRoutes: Routes = [
   {
     path: 'permissao',
     component: PermissaoComponent,
+    canActivate: [AuthGuardService],
     children: [
       { path: 'cadastrar', component: CadastrarComponent },
       { path: 'pesquisar', component: ListarComponent },

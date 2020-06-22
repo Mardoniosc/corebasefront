@@ -7,11 +7,14 @@ import {
   LogAcessoComponent,
   LogComponent,
 } from './components';
+import { AuthGuardService } from '../../shared';
 
 export const LogRoutes: Routes = [
   {
     path: 'log',
     component: LogComponent,
+    canActivate: [AuthGuardService],
+
     children: [
       { path: 'pesquisar', component: ListaLogsComponent },
       { path: 'pesquisar-acesso', component: LogAcessoComponent },

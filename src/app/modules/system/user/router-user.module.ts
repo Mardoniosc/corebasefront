@@ -9,11 +9,13 @@ import {
   PerfilUserComponent,
   AtualizarComponent,
 } from './components';
+import { AuthGuardService } from '../../shared';
 
 export const UserRoutes: Routes = [
   {
     path: 'usuario',
     component: UsuarioComponent,
+    canActivate: [AuthGuardService],
     children: [
       { path: 'cadastrar', component: CadastrarComponent },
       { path: 'pesquisar', component: ListarComponent },

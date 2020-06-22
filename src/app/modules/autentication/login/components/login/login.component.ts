@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
     if (logado) {
       this.router.navigate(['/dashboard']);
     }
-    console.log('Usuário não logado');
   }
 
   criarForm(): void {

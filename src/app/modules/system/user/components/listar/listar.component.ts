@@ -5,6 +5,7 @@ import {
   Usuario,
   ErroDTO,
   ErroGeral,
+  StorangeService,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +22,8 @@ export class ListarComponent implements OnInit {
 
   usuarios: UsuarioListAllDTO[];
 
+  usuariosFiltrados: UsuarioListAllDTO[];
+
   usuario = {} as UsuarioListAllDTO;
 
   userDetalhes = {} as Usuario;
@@ -34,21 +37,24 @@ export class ListarComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private snackBar: MatSnackBar,
+    private storangeService: StorangeService,
   ) {}
 
   ngOnInit(): void {
     this.carregarUsuarios();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  carregarUsuarios() {
+  carregarUsuarios(): void {
     this.subscriptions.push(
       this.usuarioService.getAll().subscribe(
         (data) => {
           this.usuarios = data;
+          this.usuariosFiltrados = data;
+          this.storangeService.setLocalAllUsers(data);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -73,7 +79,7 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  ativarDesativarUsuario(usuario: UsuarioListAllDTO) {
+  ativarDesativarUsuario(usuario: UsuarioListAllDTO): void {
     const status = usuario.status === 1 ? 'desativar' : 'ativar';
     this.usuario = usuario;
     Swal.fire({
@@ -118,6 +124,16 @@ export class ListarComponent implements OnInit {
         );
       }
     });
+  }
+
+  filtraUsuarioPeloNome(nome: string): void {
+    if (!nome) {
+      this.usuariosFiltrados = this.storangeService.getLocalAllUsers();
+    } else {
+      this.usuariosFiltrados = this.usuarios.filter((x) =>
+        x.nome.trim().toLowerCase().includes(nome.trim().toLowerCase()),
+      );
+    }
   }
 
   carregaUser(id: number): void {

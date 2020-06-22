@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Usuario, Perfil, Permissoes, PerfilPermissaoDTO } from '../models';
+import {
+  Usuario,
+  Perfil,
+  Permissoes,
+  PerfilPermissaoDTO,
+  UsuarioListAllDTO,
+} from '../models';
 import { STORAGE_KEYS } from '../config';
 
 @Injectable()
@@ -78,5 +84,24 @@ export class StorangeService {
     }
 
     localStorage.setItem(STORAGE_KEYS.localpefpems, JSON.stringify(obj));
+  }
+
+  getLocalAllUsers(): UsuarioListAllDTO[] {
+    const pps = localStorage.getItem(STORAGE_KEYS.localAllUsers);
+
+    if (pps == null) {
+      return null;
+    }
+
+    return JSON.parse(pps);
+  }
+
+  setLocalAllUsers(obj: UsuarioListAllDTO[]): void {
+    if (obj == null) {
+      localStorage.removeItem(STORAGE_KEYS.localAllUsers);
+      return;
+    }
+
+    localStorage.setItem(STORAGE_KEYS.localAllUsers, JSON.stringify(obj));
   }
 }

@@ -25,6 +25,16 @@
                     </div>
                 </div>
                 <div class="ibox-content">
+                  <input
+                      class="form-control mr-sm-2"
+                      type="search"
+                      placeholder="Busca usuário por nome"
+                      aria-label="Search"
+                      #termoPesquisa
+                      (keyup)="filtraUsuarioPeloNome(termoPesquisa.value)"
+                  >
+                </div>
+                <div class="ibox-content">
 
                     <div class="table-responsive">
                         <table class='table table-striped table-bordered table-hover dataTables-example'>
@@ -41,7 +51,7 @@
                             </tr>
                           </thead>
                             <tbody>
-                            <tr class='gradeX' *ngFor="let user of usuarios">
+                            <tr class='gradeX' *ngFor="let user of usuariosFiltrados">
                               <td><small>{{ user.nome }}</small></td>
                               <td>
                                 <img *ngIf="user.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ user.imagem }}" style="width: 40px; height: 40px;"/>

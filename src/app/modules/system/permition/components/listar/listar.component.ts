@@ -8,10 +8,12 @@ import {
   PerfilPermissaoDTO,
   PerfilService,
   PerfilPermissaoService,
+  StorangeService,
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar',
@@ -40,6 +42,7 @@ export class ListarComponent implements OnInit {
     private snackBar: MatSnackBar,
     private permissaoService: PermissaoService,
     private perfilPermissaoService: PerfilPermissaoService,
+    private storangeService: StorangeService,
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class ListarComponent implements OnInit {
       this.perfilService.getAll().subscribe(
         (data) => {
           this.perfils = data;
+          this.storangeService.setLocalPerfils(this.perfils);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -86,6 +90,7 @@ export class ListarComponent implements OnInit {
       this.permissaoService.getAll().subscribe(
         (data) => {
           this.permissoes = data;
+          this.storangeService.setLocalPermition(this.permissoes);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -115,6 +120,7 @@ export class ListarComponent implements OnInit {
       this.perfilPermissaoService.getAll().subscribe(
         (data) => {
           this.perfilPermissao = data;
+          this.storangeService.setLocalPP(this.perfilPermissao);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -137,5 +143,71 @@ export class ListarComponent implements OnInit {
         },
       ),
     );
+  }
+
+  verificaPermissaoHasPerfil(permissao: number, perfil: number): boolean {
+    return false;
+  }
+
+  permissaDescricao(id: number): string {
+    const permissao = this.permissoes.find((x) => x.id === id);
+    return permissao.descricao;
+  }
+
+  permissaoUrl(id: number): string {
+    const permissao = this.permissoes.find((x) => x.id === id);
+    return permissao.url;
+  }
+
+  perfiNome(id: number): string {
+    const perfil = this.perfils.find((x) => x.id === id);
+    return perfil.nome;
+  }
+
+  alterStatusPP(pp: PerfilPermissaoDTO): void {
+    this.perfilPermi = pp;
+
+    this.status = pp.status === 1 ? 'desativar' : 'ativar';
+
+    Swal.fire({
+      title: `Deseja ${this.status} permissao?`,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: `Sim, ${this.status}!`,
+    }).then((result) => {
+      if (result.value) {
+        this.perfilPermi.status = pp.status === 1 ? 0 : 1;
+        this.perfilPermissaoService.update(this.perfilPermi).subscribe(
+          (data) => {
+            Swal.fire({
+              title: this.status === 'ativar' ? 'Ativado!' : 'Desativado',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1000,
+            });
+          },
+          (err) => {
+            this.erroGeral = err.error;
+
+            if (this.erroGeral.errors) {
+              this.erroGeral.errors.forEach((e) => {
+                this.erroDTO = e;
+                this.snackBar.open(
+                  `Erro ${this.erroGeral.status} ${e.message}`,
+                  e.fieldName,
+                  { duration: 3000 },
+                );
+              });
+            } else {
+              const title = `Erro ${this.erroGeral.status}`;
+              this.snackBar.open(this.erroGeral.message, title, {
+                duration: 3000,
+              });
+            }
+          },
+        );
+      }
+    });
   }
 }

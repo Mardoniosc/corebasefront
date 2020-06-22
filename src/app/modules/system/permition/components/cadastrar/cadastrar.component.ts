@@ -176,7 +176,7 @@ export class CadastrarComponent implements OnInit {
   pegarPerfil(id: number): void {
     this.perfil = this.perfils.find((x) => x.id === id);
     if (!this.perfil) {
-      this.perfils = JSON.parse(localStorage.getItem('allPerfils'));
+      this.perfils = this.storangeService.getLocalPerfils();
       this.perfil = this.perfils.find((x) => x.id === id);
     }
   }
@@ -184,7 +184,7 @@ export class CadastrarComponent implements OnInit {
   pergarPermissao(id): void {
     this.permissao = this.permissoes.find((x) => x.id === id);
     if (!this.permissao) {
-      this.permissoes = JSON.parse(localStorage.getItem('allPermissao'));
+      this.permissoes = this.storangeService.getLocalPermition();
       this.permissao = this.permissoes.find((x) => x.id === id);
     }
   }

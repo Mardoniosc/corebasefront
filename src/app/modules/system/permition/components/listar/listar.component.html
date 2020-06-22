@@ -36,19 +36,17 @@
                               </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let permissao of permissoes">
-                                  <td>{{ permissao.descricao }}</td>
-                                  <td>{{ permissao.url }}</td>
-                                  <td>Administrador</td>
+                                <tr *ngFor="let pp of perfilPermissao">
+                                  <td>{{ permissaDescricao(pp.permissaoId) }}</td>
+                                  <td>{{ permissaoUrl(pp.permissaoId) }}</td>
+                                  <td>{{perfiNome(pp.perfilId)}}</td>
                                   <td>
-                                    <span class='label label-primary'>Ativado</span>
+                                    <span class='label label-{{ pp.status === 1 ? "primary" : "default" }}'>{{ pp.status === 1 ? 'Ativado' : 'Desativado' }}</span>
                                   </td>
                                   <td>
-                                    <a href='status.php?perfil=2&permissao=8&status=0'>
-                                      <button type='button' class='btn btn-outline btn-danger'>
-                                        <i class='fa fa-toggle-off'></i> Desativar
+                                      <button type='button' (click)="alterStatusPP(pp)" class='btn btn-outline btn-{{ pp.status === 1 ? "danger" : "info" }}'>
+                                        <i class='fa fa-toggle-off'></i> {{ pp.status === 1 ? "Desativar" : "&nbsp;&nbsp;Ativar&nbsp;&nbsp;" }}
                                       </button>
-                                    </a>
                                   </td>
                                 </tr>
                               </tbody>

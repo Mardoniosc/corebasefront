@@ -27,7 +27,7 @@ export class ForgotComponent implements OnInit {
 
   erroGeral = {} as ErroGeral;
 
-  erroDTO: ErroDTO[];
+  erroDTO: ErroDTO;
 
   carregando = false;
 
@@ -76,10 +76,23 @@ export class ForgotComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         (err) => {
-          this.carregando = false;
           this.erroGeral = err.error;
-          const title = `Erro ${this.erroGeral.status}`;
-          this.snackBar.open(this.erroGeral.message, title, { duration: 3000 });
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );

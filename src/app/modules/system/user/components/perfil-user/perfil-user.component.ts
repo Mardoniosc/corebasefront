@@ -4,7 +4,13 @@ import { API_CONFIG } from 'src/app/modules/shared/config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { Usuario, StorangeService, UsuarioService } from '../../../../shared';
+import {
+  Usuario,
+  StorangeService,
+  UsuarioService,
+  ErroGeral,
+  ErroDTO,
+} from '../../../../shared';
 
 @Component({
   selector: 'app-perfil-user',
@@ -15,6 +21,10 @@ export class PerfilUserComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   usuario = {} as Usuario;
+
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO;
 
   file = new FormData();
 
@@ -78,11 +88,23 @@ export class PerfilUserComponent implements OnInit {
           }, 1000);
         },
         (err) => {
-          const title = err.error.error;
-          const msg = 'Necessário selecionar uma nova imagem';
-          const { status } = err.error;
+          this.erroGeral = err.error;
 
-          this.snackBar.open(msg, `${title} ${status}`, { duration: 3000 });
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );

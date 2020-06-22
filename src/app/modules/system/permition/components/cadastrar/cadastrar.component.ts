@@ -7,6 +7,8 @@ import {
   PerfilService,
   PermissaoService,
   StorangeService,
+  ErroDTO,
+  ErroGeral,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,6 +29,10 @@ export class CadastrarComponent implements OnInit {
   perfilHasPermissao = {} as PerfilPermissaoDTO;
 
   perfils: Perfil[];
+
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO;
 
   perfil = {} as Perfil;
 
@@ -85,8 +91,23 @@ export class CadastrarComponent implements OnInit {
           this.storangeService.setLocalPerfils(this.perfils);
         },
         (err) => {
-          const msg = 'Erro ao buscar perfils';
-          this.snackBar.open(msg, 'Erro', { duration: 3000 });
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );
@@ -100,8 +121,23 @@ export class CadastrarComponent implements OnInit {
           this.storangeService.setLocalPermition(this.permissoes);
         },
         (err) => {
-          const msg = 'Erro ao buscar permissoes';
-          this.snackBar.open(msg, 'Erro', { duration: 3000 });
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );
@@ -115,8 +151,23 @@ export class CadastrarComponent implements OnInit {
           this.storangeService.setLocalPP(this.perfilPermissoes);
         },
         (err) => {
-          const msg = 'Erro ao buscar Perfil e Permissoes';
-          this.snackBar.open(msg, 'Erro', { duration: 3000 });
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );
@@ -143,8 +194,23 @@ export class CadastrarComponent implements OnInit {
       this.perfilPermissaoService.insert(perfilPermissao).subscribe(
         (data) => console.log(),
         (err) => {
-          const msg = 'Erro ao cadastrar a permissao';
-          this.snackBar.open(msg, 'Erro', { duration: 3000 });
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );

@@ -3,8 +3,11 @@ import {
   UsuarioListAllDTO,
   UsuarioService,
   Usuario,
+  ErroDTO,
+  ErroGeral,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { API_CONFIG } from 'src/app/modules/shared/config';
 import Swal from 'sweetalert2';
 
@@ -22,9 +25,16 @@ export class ListarComponent implements OnInit {
 
   userDetalhes = {} as Usuario;
 
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO;
+
   baseUrlServidor = API_CONFIG.baseUrl;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(
+    private usuarioService: UsuarioService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
     this.carregarUsuarios();
@@ -40,7 +50,25 @@ export class ListarComponent implements OnInit {
         (data) => {
           this.usuarios = data;
         },
-        (err) => console.log(err),
+        (err) => {
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
+        },
       ),
     );
   }
@@ -68,7 +96,25 @@ export class ListarComponent implements OnInit {
               timer: 2000,
             });
           },
-          (err) => console.log(err),
+          (err) => {
+            this.erroGeral = err.error;
+
+            if (this.erroGeral.errors) {
+              this.erroGeral.errors.forEach((e) => {
+                this.erroDTO = e;
+                this.snackBar.open(
+                  `Erro ${this.erroGeral.status} ${e.message}`,
+                  e.fieldName,
+                  { duration: 3000 },
+                );
+              });
+            } else {
+              const title = `Erro ${this.erroGeral.status}`;
+              this.snackBar.open(this.erroGeral.message, title, {
+                duration: 3000,
+              });
+            }
+          },
         );
       }
     });

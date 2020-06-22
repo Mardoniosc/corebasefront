@@ -6,7 +6,11 @@ import {
   PermissaoService,
   PerfilPermissaoService,
   PerfilPermissaoDTO,
+  ErroDTO,
+  ErroGeral,
 } from 'src/app/modules/shared';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -20,6 +24,10 @@ export class ListarComponent implements OnInit {
 
   perfils: Perfil[];
 
+  erroGeral = {} as ErroGeral;
+
+  erroDTO: ErroDTO;
+
   status: string;
 
   permissoes: Permissoes[];
@@ -30,6 +38,7 @@ export class ListarComponent implements OnInit {
 
   constructor(
     private perfilService: PerfilService,
+    private snackBar: MatSnackBar,
     private permissaoService: PermissaoService,
     private perfilPermissaoService: PerfilPermissaoService,
   ) {}
@@ -50,7 +59,25 @@ export class ListarComponent implements OnInit {
         (data) => {
           this.perfils = data;
         },
-        (err) => console.log(err),
+        (err) => {
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
+        },
       ),
     );
   }
@@ -61,7 +88,25 @@ export class ListarComponent implements OnInit {
         (data) => {
           this.permissoes = data;
         },
-        (err) => console.log(err),
+        (err) => {
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
+        },
       ),
     );
   }
@@ -72,7 +117,25 @@ export class ListarComponent implements OnInit {
         (data) => {
           this.perfilPermissao = data;
         },
-        (err) => console.log(err),
+        (err) => {
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
+        },
       ),
     );
   }
@@ -93,7 +156,9 @@ export class ListarComponent implements OnInit {
     );
 
     if (!response) {
-      console.log('Erro ao tentar atualizar!');
+      this.snackBar.open('Erro ao tentar atualizar', 'Erro', {
+        duration: 3000,
+      });
       return;
     }
     this.perfilPermi = response;
@@ -121,7 +186,25 @@ export class ListarComponent implements OnInit {
               timer: 1000,
             });
           },
-          (err) => console.log(err),
+          (err) => {
+            this.erroGeral = err.error;
+
+            if (this.erroGeral.errors) {
+              this.erroGeral.errors.forEach((e) => {
+                this.erroDTO = e;
+                this.snackBar.open(
+                  `Erro ${this.erroGeral.status} ${e.message}`,
+                  e.fieldName,
+                  { duration: 3000 },
+                );
+              });
+            } else {
+              const title = `Erro ${this.erroGeral.status}`;
+              this.snackBar.open(this.erroGeral.message, title, {
+                duration: 3000,
+              });
+            }
+          },
         );
       }
     });

@@ -25,7 +25,7 @@ export class CadastrarComponent implements OnInit {
 
   erroGeral = {} as ErroGeral;
 
-  erroDTO: ErroDTO[];
+  erroDTO = {} as ErroDTO;
 
   usuarioNew = {} as UsuarioNewDTO;
 
@@ -73,13 +73,22 @@ export class CadastrarComponent implements OnInit {
         },
         (err) => {
           this.erroGeral = err.error;
-          this.erroGeral.errors.forEach((e) => {
-            this.erroDTO.push(e);
-          });
-          this.erroDTO.forEach((x) => {
-            const title = `Erro ${this.erroGeral.status} campo ${x.fieldName}`;
-            this.snackBar.open(x.message, title, { duration: 3000 });
-          });
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );
@@ -118,13 +127,22 @@ export class CadastrarComponent implements OnInit {
         },
         (err) => {
           this.erroGeral = err.error;
-          this.erroGeral.errors.forEach((e) => {
-            this.erroDTO.push(e);
-          });
-          this.erroDTO.forEach((x) => {
-            const title = `Erro ${this.erroGeral.status} campo ${x.fieldName}`;
-            this.snackBar.open(x.message, title, { duration: 3000 });
-          });
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
         },
       ),
     );

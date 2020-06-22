@@ -53,7 +53,7 @@ export class ListarComponent implements OnInit {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  carregaPerfils() {
+  carregaPerfils(): void {
     this.subscriptions.push(
       this.perfilService.getAll().subscribe(
         (data) => {
@@ -82,7 +82,7 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  carregaPermissoes() {
+  carregaPermissoes(): void {
     this.subscriptions.push(
       this.permissaoService.getAll().subscribe(
         (data) => {
@@ -111,7 +111,7 @@ export class ListarComponent implements OnInit {
     );
   }
 
-  carregaPerfilHasPermition() {
+  carregaPerfilHasPermition(): void {
     this.subscriptions.push(
       this.perfilPermissaoService.getAll().subscribe(
         (data) => {

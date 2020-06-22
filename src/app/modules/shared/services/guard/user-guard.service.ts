@@ -12,10 +12,7 @@ export class UserGuardService implements CanActivate {
   ) {}
 
   canActivate(): boolean {
-    const userLogged = this.storageService.getLocalUser;
-    if (userLogged) {
-      return true;
-    }
+    const userLogged = this.storageService.getLocalUser();
 
     this.router.navigate(['/login']);
     return false;

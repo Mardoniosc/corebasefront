@@ -4,30 +4,34 @@ import { Subscription } from 'rxjs';
 import { PerfilService, UsuarioService } from 'src/app/modules/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import {
   PerfilDTO,
   ErroGeral,
   ErroDTO,
   UsuarioNewDTO,
+  UsuarioListAllDTO,
+  Usuario,
 } from '../../../../shared/models';
 
 import { CpfValidator } from '../../../../shared/validators';
 
 @Component({
-  selector: 'app-cadastrar',
-  templateUrl: './cadastrar.component.html',
-  styleUrls: ['./cadastrar.component.css'],
+  selector: 'app-atualizar',
+  templateUrl: './atualizar.component.html',
+  styleUrls: ['./atualizar.component.css'],
 })
-export class CadastrarComponent implements OnInit {
+export class AtualizarComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   erroGeral = {} as ErroGeral;
 
   erroDTO = {} as ErroDTO;
 
-  usuarioNew = {} as UsuarioNewDTO;
+  usuarioNew = {} as UsuarioListAllDTO;
+
+  usuario = {} as Usuario;
 
   form: FormGroup;
 
@@ -35,9 +39,11 @@ export class CadastrarComponent implements OnInit {
 
   perfils: PerfilDTO[];
 
+  userId: string;
+
   constructor(
     private fb: FormBuilder,
-    private router: Router,
+    private route: ActivatedRoute,
     private perfilService: PerfilService,
     private snackBar: MatSnackBar,
     private usuarioService: UsuarioService,
@@ -50,8 +56,10 @@ export class CadastrarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carregaPerfils();
     this.criarForm();
+    this.userId = this.route.snapshot.paramMap.get('userId');
+    this.carregaPerfils();
+    this.buscarUserId();
   }
 
   criarForm(): void {
@@ -60,9 +68,37 @@ export class CadastrarComponent implements OnInit {
       cpf: ['', [Validators.required, CpfValidator]],
       datanascimento: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', Validators.required],
       perfil: ['', Validators.required],
     });
+  }
+
+  buscarUserId(): void {
+    this.subscriptions.push(
+      this.usuarioService.getUserById(Number(this.userId)).subscribe(
+        (data) => {
+          this.usuario = data;
+        },
+        (err) => {
+          this.erroGeral = err.error;
+
+          if (this.erroGeral.errors) {
+            this.erroGeral.errors.forEach((e) => {
+              this.erroDTO = e;
+              this.snackBar.open(
+                `Erro ${this.erroGeral.status} ${e.message}`,
+                e.fieldName,
+                { duration: 3000 },
+              );
+            });
+          } else {
+            const title = `Erro ${this.erroGeral.status}`;
+            this.snackBar.open(this.erroGeral.message, title, {
+              duration: 3000,
+            });
+          }
+        },
+      ),
+    );
   }
 
   carregaPerfils(): void {
@@ -94,7 +130,7 @@ export class CadastrarComponent implements OnInit {
     );
   }
 
-  cadastrarUsuario(): void {
+  atualizarUsuario(): void {
     if (this.form.invalid) {
       this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
         duration: 3000,
@@ -104,16 +140,19 @@ export class CadastrarComponent implements OnInit {
     }
 
     // carregando informações para salvar novo usuário
-    this.usuarioNew = this.form.value;
+    this.usuario = this.form.value;
+    this.usuarioNew.nome = this.usuario.nome;
+    this.usuarioNew.cpf = this.usuario.cpf;
+    this.usuarioNew.id = Number(this.userId);
     this.usuarioNew.perfilId = this.form.value.perfil;
     this.usuarioNew.dataNascimento = this.form.value.datanascimento;
-    this.usuarioNew.criado = new Date();
+    this.usuarioNew.email = this.usuario.email;
     this.usuarioNew.login = this.usuarioNew.email;
     this.usuarioNew.status = 1;
     this.subscriptions.push(
-      this.usuarioService.insert(this.usuarioNew).subscribe(
+      this.usuarioService.update(this.usuarioNew).subscribe(
         (data) => {
-          const msg = 'Usuário cadastradas com sucesso!';
+          const msg = 'Usuário atualizado com sucesso!';
 
           Swal.fire({
             title: msg,
@@ -152,7 +191,6 @@ export class CadastrarComponent implements OnInit {
     this.form.get('cpf').markAsTouched();
     this.form.get('email').markAsTouched();
     this.form.get('nome').markAsTouched();
-    this.form.get('senha').markAsTouched();
     this.form.get('perfil').markAsTouched();
     this.form.get('datanascimento').markAsTouched();
   }

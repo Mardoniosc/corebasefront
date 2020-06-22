@@ -13,6 +13,7 @@ import {
   ListarComponent,
   UsuarioComponent,
   PerfilUserComponent,
+  AtualizarComponent,
 } from './components';
 import { SharedModule, MenuModule } from '../../shared';
 
@@ -22,6 +23,7 @@ import { SharedModule, MenuModule } from '../../shared';
     ListarComponent,
     UsuarioComponent,
     PerfilUserComponent,
+    AtualizarComponent,
   ],
   imports: [
     CommonModule,

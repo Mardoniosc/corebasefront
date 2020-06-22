@@ -7,6 +7,7 @@ import {
   ListarComponent,
   UsuarioComponent,
   PerfilUserComponent,
+  AtualizarComponent,
 } from './components';
 
 export const UserRoutes: Routes = [
@@ -17,6 +18,7 @@ export const UserRoutes: Routes = [
       { path: 'cadastrar', component: CadastrarComponent },
       { path: 'pesquisar', component: ListarComponent },
       { path: 'perfil', component: PerfilUserComponent },
+      { path: 'atualizar/:userId', component: AtualizarComponent },
     ],
   },
 ];

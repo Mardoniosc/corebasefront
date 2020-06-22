@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { API_CONFIG } from 'src/app/modules/shared/config';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import {

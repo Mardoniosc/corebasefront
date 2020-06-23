@@ -58,13 +58,26 @@
                                   <div class="col-lg-4 m-l-n">
                                     <section class="section-checkbox" *ngIf="perfilSelecionadoTrue">
                                       <li style="list-style-type: none;" *ngFor="let item of permissoes">
-                                        <mat-checkbox [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item.id)" *ngIf="!item.permissaoPai">
+                                        <mat-checkbox
+                                          [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item.id)"
+                                          *ngIf="!item.permissaoPai"
+                                          [value]="item.id"
+                                          #permissaoId
+                                          (click)="checkBoxSelecionado(permissaoId.value)"
+
+                                        >
                                           <span >{{ item.descricao }}</span>
                                         </mat-checkbox>
                                         <ul style="list-style-type: none;" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')">
                                           <li style="list-style-type: none;" *ngFor="let item2 of permissoes">
 
-                                            <mat-checkbox [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item2.id)" *ngIf="item.id == item2.permissaoPai?.id">
+                                            <mat-checkbox
+                                              [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item2.id)"
+                                              [value]="item2.id"
+                                              #permissaoId
+                                              (click)="checkBoxSelecionado(permissaoId.value)"
+                                              *ngIf="item.id == item2.permissaoPai?.id"
+                                            >
                                               {{ item2.descricao }}
                                             </mat-checkbox>
                                           </li>
@@ -90,7 +103,7 @@
                           <div class="form-group">
                               <div class="col-sm-4 col-sm-offset-2">
                                   <button class="btn btn-w-m btn-warning" type="reset"><i class="fa fa-close"></i> Limpar</button>
-                                  <button class="btn btn-w-m btn-primary" type="submit"><i class="fa fa-check"></i> Cadastrar</button>
+                                  <button class="btn btn-w-m btn-primary" type="button" (click)="cadastrar()"><i class="fa fa-check"></i> Cadastrar</button>
                               </div>
                           </div>
                         </div>

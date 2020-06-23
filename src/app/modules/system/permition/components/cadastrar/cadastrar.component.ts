@@ -44,6 +44,8 @@ export class CadastrarComponent implements OnInit {
 
   permissoes: Permissoes[];
 
+  permissoesFiltradas: Permissoes[];
+
   checkBoxSelecionadosArray = [] as Array<Int32Array>;
 
   constructor(
@@ -57,6 +59,7 @@ export class CadastrarComponent implements OnInit {
 
   ngOnInit(): void {
     this.reloadPermissoesPerfil();
+    this.permissoes = this.storangeService.getLocalPermition();
   }
 
   reloadPermissoesPerfil(): void {
@@ -220,12 +223,11 @@ export class CadastrarComponent implements OnInit {
     this.idPerfilSelecionado = id;
     this.perfilSelecionadoTrue = true;
     this.verificaPermissaoDisponivelParaOPerfil(id);
+    this.permissoes = this.storangeService.getLocalPermition();
   }
 
   verificaPermissaoDisponivelParaOPerfil(id) {
-    this.permissoes = this.storangeService.getLocalPermition();
-
-    this.permissoes = this.permissoes.filter((permissao) => {
+    this.permissoesFiltradas = this.permissoes.filter((permissao) => {
       const resultado = this.perfilPermissoes.find(
         (perfilPermissao) =>
           perfilPermissao.permissaoId === permissao.id &&
@@ -237,6 +239,20 @@ export class CadastrarComponent implements OnInit {
 
       return null;
     });
+  }
+
+  habilitaOuDesabilitaOpcao(idPerfil, idPermissao): boolean {
+    const resultado = this.verificaPermissaoDisponivelParaOPerfil(idPerfil);
+    const result = this.permissoesFiltradas.find((x) => {
+      if (x.id === idPermissao) {
+        return true;
+      }
+      return false;
+    });
+    if (result) {
+      return false;
+    }
+    return true;
   }
 
   cadastrar(): void {

@@ -1,96 +1,103 @@
 <div id="wrapper">
   <app-menu>  </app-menu>    <div id="page-wrapper" class="gray-bg">
-      <div class="row border-bottom">
-        <!-- NAVE -->
-        <app-barra-de-menu>        </app-barra-de-menu>
-      </div>      <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Formulário para preenchimento &nbsp;&nbsp;<b class="text-danger">
-                          <i class='fa fa-exclamation'>                        </i> Campos obrigatórios</b>
-                        </h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up">                                </i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="ibox-content">
-                      <form id="formValidacao" action="/permissao/cadastrar">
-                        <div class="form-group">
-                              <label class="col-sm-2 control-label">Perfil <i class='fa fa-exclamation text-danger'></i>
-                              </label>
-                                <div class="col-sm-10">
-
-                                          <mat-card>
-                                            <mat-card-content>
-                                                <mat-radio-group
-                                                    aria-labelledby="example-radio-group-label"
-                                                    class="radio-group-permissao">
-                                                    <mat-radio-button *ngFor="let perfil of perfils"
-                                                        class="radio-button-permissao"
-                                                        [value]="perfil.id"
-                                                        #perfilId
-                                                        (click)="perfilSelecionado(perfilId.value)"
-                                                        style="margin-right: 5px;"
-                                                    >
-                                                        {{ perfil.nome }}
-                                                    </mat-radio-button>
-                                                </mat-radio-group>
-                                            </mat-card-content>
-                                        </mat-card>
-
-                                </div>
-                            </div><div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                              <label class="col-sm-2 control-label">Permissões <i class='fa fa-exclamation text-danger'></i>
-                            </label>
-                                <div class="col-sm-10">
-                                        <mat-card>
-                                          <mat-card-content>
-                                                  <section class="section-checkbox" *ngIf="perfilSelecionadoTrue">
-                                                      <mat-checkbox
-                                                          class="margin-checkbox"
-                                                          *ngFor="let permissao of permissoes"
-                                                          [value]="permissao.id"
-                                                          #permissaoId
-                                                          (click)="checkBoxSelecionado(permissaoId.value)"
-                                                          style="margin-right: 5px;"
-                                                          >
-
-                                                          {{ permissao.descricao }}
-                                                      </mat-checkbox>
-                                                  </section>
-
-                                                  <p *ngIf="perfilSelecionadoTrue === false">
-                                                    <strong>
-                                                      Selecione um pefil para adicionar permissões
-                                                    </strong>
-                                                  </p>
-                                                  <p *ngIf="permissoes?.length === 0">
-                                                    <strong>
-                                                      Todas as pemissões já estão cadastradas para este perfil
-                                                    </strong>
-                                                  </p>
-                                          </mat-card-content>
-                                      </mat-card>
-                                </div>
-                            </div>                            <div class="hr-line-dashed">                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-w-m btn-warning" type="submit" style="margin-top: 20px; margin-right: 20px;">
-                                      <i class="fa fa-close">                                    </i> Limpar</button>
-                                    <button class="btn btn-w-m btn-primary" (click)="cadastrar()" type="button" style="margin-top: 20px;">
-                                      <i class="fa fa-check">                                    </i> Cadastrar</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="row border-bottom">
+      <!-- NAVE -->
+      <app-barra-de-menu>        </app-barra-de-menu>
     </div>
-    </div></div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="ibox float-e-margins">
+                  <div class="ibox-title">
+                      <h5>Formulário para preenchimento &nbsp;&nbsp;<b class="text-danger"><i class='fa fa-exclamation'></i> Campos obrigatórios</b></h5>
+                      <div class="ibox-tools">
+                          <a class="collapse-link">
+                              <i class="fa fa-chevron-up"></i>
+                          </a>
+                      </div>
+                  </div>
+                  <div class="ibox-content">
+
+                      <div class="form-horizontal">
+
+                          <div class="form-group"><label class="col-sm-2 control-label">Perfil <i class='fa fa-exclamation text-danger'></i></label>
+                              <div class="col-sm-10">
+                                  <div class="col-lg-4 m-l-n">
+                                    <mat-radio-group
+                                        aria-labelledby="example-radio-group-label"
+                                        class="radio-group-permissao">
+                                        <mat-radio-button *ngFor="let perfil of perfils"
+                                            class="radio-button-permissao"
+                                            [value]="perfil.id"
+                                            #perfilId
+                                            (click)="perfilSelecionado(perfilId.value)"
+                                            style="margin-right: 5px;"
+                                        >
+                                            <strong>
+                                              {{ perfil.nome }}
+                                            </strong>
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="hr-line-dashed">
+
+                          </div>
+
+
+
+
+                          <!-- AMBIENTE DE TESTE -->
+
+
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label">Permissão de acesso <i class='fa fa-exclamation text-danger'></i></label>
+                              <div class="col-sm-10">
+                                  <div class="col-lg-4 m-l-n">
+                                    <section class="section-checkbox" *ngIf="perfilSelecionadoTrue">
+                                      <li style="list-style-type: none;" *ngFor="let item of permissoes">
+                                        <mat-checkbox [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item.id)" *ngIf="!item.permissaoPai">
+                                          <span >{{ item.descricao }}</span>
+                                        </mat-checkbox>
+                                        <ul style="list-style-type: none;" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')">
+                                          <li style="list-style-type: none;" *ngFor="let item2 of permissoes">
+
+                                            <mat-checkbox [disabled]="habilitaOuDesabilitaOpcao(idPerfilSelecionado, item2.id)" *ngIf="item.id == item2.permissaoPai?.id">
+                                              {{ item2.descricao }}
+                                            </mat-checkbox>
+                                          </li>
+                                        </ul>
+                                      </li>
+
+                                    </section>
+                                    <p *ngIf="perfilSelecionadoTrue === false">
+                                      <strong>
+                                        Selecione um pefil para adicionar permissões
+                                      </strong>
+                                    </p>
+                                    <p *ngIf="permissoes?.length === 0">
+                                      <strong>
+                                        Todas as pemissões já estão cadastradas para este perfil
+                                      </strong>
+                                    </p>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="hr-line-dashed"></div>
+                          <div class="form-group">
+                              <div class="col-sm-4 col-sm-offset-2">
+                                  <button class="btn btn-w-m btn-warning" type="reset"><i class="fa fa-close"></i> Limpar</button>
+                                  <button class="btn btn-w-m btn-primary" type="submit"><i class="fa fa-check"></i> Cadastrar</button>
+                              </div>
+                          </div>
+                        </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>

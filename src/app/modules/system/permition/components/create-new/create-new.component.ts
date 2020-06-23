@@ -58,6 +58,7 @@ export class CreateNewComponent implements OnInit {
   }
 
   cadastrarNovaPermissao(): void {
+    console.log(this.form);
     if (this.form.invalid) {
       const msg = 'Preenchimento do formulário inválido!';
       this.snackBar.open(msg, 'Erro validação', { duration: 4000 });

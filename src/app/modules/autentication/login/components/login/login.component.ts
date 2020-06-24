@@ -13,6 +13,8 @@ import {
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
     private storangeService: StorangeService,
     private snackBar: MatSnackBar,
     private userLoggedService: UserLoggedService,
+    private toast: ToastrService,
   ) {}
 
   ngOnDestroy(): void {
@@ -79,8 +82,8 @@ export class LoginComponent implements OnInit {
             this.storangeService.setLocalUser(data);
             this.refresh();
           } else {
-            this.snackBar.open('Usuario Desativado', 'Erro', {
-              duration: 4000,
+            this.toast.error('Usuario Desativado', 'Erro', {
+              timeOut: 4000,
             });
           }
         },
@@ -98,8 +101,8 @@ export class LoginComponent implements OnInit {
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },

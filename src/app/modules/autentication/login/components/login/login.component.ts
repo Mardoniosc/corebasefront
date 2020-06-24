@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Login,
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private userLoggedService: UserLoggedService,
     private toast: ToastrService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnDestroy(): void {
@@ -50,7 +53,7 @@ export class LoginComponent implements OnInit {
     this.verificaUserLogged();
   }
 
-  verificaUserLogged() {
+  verificaUserLogged(): void {
     const logado = this.userLoggedService.userLogged();
 
     if (logado) {
@@ -66,12 +69,14 @@ export class LoginComponent implements OnInit {
   }
 
   logar(): void {
+    this.spinner.show();
     if (this.form.invalid) {
       this.snackBar.open(
         'Preechimento inválido do formularios de login',
         'Erro ao ler dados',
         { duration: 3000 },
       );
+      this.spinner.hide();
       return;
     }
     this.login = this.form.value;
@@ -80,6 +85,7 @@ export class LoginComponent implements OnInit {
         (data) => {
           if (data.status === 1) {
             this.storangeService.setLocalUser(data);
+            this.spinner.hide();
             this.refresh();
           } else {
             this.toast.error('Usuario Desativado', 'Erro', {
@@ -93,6 +99,7 @@ export class LoginComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
+              this.spinner.hide();
               this.snackBar.open(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
@@ -101,6 +108,7 @@ export class LoginComponent implements OnInit {
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
+            this.spinner.hide();
             this.toast.error(this.erroGeral.message, title, {
               timeOut: 3000,
             });

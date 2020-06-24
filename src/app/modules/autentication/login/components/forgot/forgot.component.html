@@ -1,3 +1,6 @@
+<ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
+  <p style="color: white;"></p>
+</ngx-spinner>
 <div class="body">
   <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
@@ -16,8 +19,7 @@
                   id="email"
                   placeholder="Seu e-mail de cadastro">
               </div>
-            <button *ngIf="!carregando" type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
-            <button *ngIf="carregando" type="button" class="btn btn-primary block full-width m-b">Enviando email...</button>
+            <button type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
 
             <a href="/login"><small>Voltar para tela de login</small></a>
         </form>

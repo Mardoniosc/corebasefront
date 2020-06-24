@@ -6,3 +6,4 @@ export * from './perfil.model';
 export * from './permissoes.model';
 export * from './historicoAcesso.model';
 export * from './error.model';
+export * from './infoUserLogged.model';

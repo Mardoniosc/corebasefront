@@ -36,9 +36,9 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr class='gradeX'>
-                                  <td>2892</td>
-                                  <td>21/05/2020 17:11</td>
+                                <tr class='gradeX' *ngFor="let item of acessos">
+                                  <td>{{ item.id }}</td>
+                                  <td> {{ item.dataAcesso | date: 'dd/MM/y HH:mm' }} </td>
                                   <td>Tecnisys</td>
                                   <td>Alessandra</td>
                                   <td> sem foto</td>

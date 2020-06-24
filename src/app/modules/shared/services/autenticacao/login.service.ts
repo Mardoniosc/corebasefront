@@ -23,4 +23,8 @@ export class LoginService {
   forgot(email: Forgot): Observable<any> {
     return this.http.post(`${API_CONFIG.baseUrl + this.PATH}/forgot`, email);
   }
+
+  pegaIpUser(): Observable<any> {
+    return this.http.get(API_CONFIG.pegaIp);
+  }
 }

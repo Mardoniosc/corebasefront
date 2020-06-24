@@ -12,6 +12,7 @@ export interface Usuario {
   senha: string;
   imagem?: string;
   status?: number;
-  historicosAcessos?: HistoricoAcesso[];
+  historicosAcesso?: HistoricoAcesso[];
   perfil?: Perfil;
+  imageProfile?: string;
 }

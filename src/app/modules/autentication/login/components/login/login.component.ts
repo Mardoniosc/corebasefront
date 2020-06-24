@@ -72,10 +72,10 @@ export class LoginComponent implements OnInit {
   }
 
   logar(): void {
+    this.spinner.show();
     this.loginService.pegaIpUser().subscribe((data) => {
       this.infoUserLogged = data;
     });
-    this.spinner.show();
     if (this.form.invalid) {
       this.snackBar.open(
         'Preechimento inválido do formularios de login',

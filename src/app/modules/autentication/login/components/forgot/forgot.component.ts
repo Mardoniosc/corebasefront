@@ -7,6 +7,8 @@ import {
   LoginService,
 } from 'src/app/modules/shared';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -36,6 +38,7 @@ export class ForgotComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
+    private spinner: NgxSpinnerService,
   ) {}
 
   ngOnInit(): void {
@@ -53,8 +56,9 @@ export class ForgotComponent implements OnInit {
   }
 
   enviarEmail() {
-    this.carregando = true;
+    this.spinner.show();
     if (this.form.invalid) {
+      this.spinner.hide();
       this.snackBar.open('E-mail inválido', 'Erro no preenchimento', {
         duration: 3000,
       });
@@ -67,7 +71,7 @@ export class ForgotComponent implements OnInit {
     this.subscriptions.push(
       this.loginService.forgot(this.forgot).subscribe(
         (data) => {
-          this.carregando = false;
+          this.spinner.hide();
           Swal.fire(
             'Gerado nova senha com sucesso!',
             'Favor verificar seu e-mail',
@@ -77,7 +81,7 @@ export class ForgotComponent implements OnInit {
         },
         (err) => {
           this.erroGeral = err.error;
-
+          this.spinner.hide();
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;

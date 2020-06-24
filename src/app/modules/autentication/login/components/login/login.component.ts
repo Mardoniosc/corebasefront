@@ -12,6 +12,7 @@ import {
   ErroDTO,
   UserLoggedService,
   StorangeService,
+  InfoUserLogged,
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -26,6 +27,8 @@ export class LoginComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   login = {} as Login;
+
+  infoUserLogged = {} as InfoUserLogged;
 
   erroGeral = {} as ErroGeral;
 
@@ -70,6 +73,9 @@ export class LoginComponent implements OnInit {
 
   logar(): void {
     this.spinner.show();
+    this.loginService.pegaIpUser().subscribe((data) => {
+      this.infoUserLogged = data;
+    });
     if (this.form.invalid) {
       this.snackBar.open(
         'Preechimento inválido do formularios de login',

@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~9.1.9",
+    "@angular/animations": "^9.1.11",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.9",
     "@angular/compiler": "~9.1.9",
@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
     "express": "^4.17.1",
+    "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",
     "sweetalert2": "^9.15.1",
     "ts-md5": "^1.2.7",

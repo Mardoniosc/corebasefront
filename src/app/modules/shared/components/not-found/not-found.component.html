@@ -1,14 +1,14 @@
 <div class="middle-box text-center animated fadeInDown">
   <h1>404</h1>
-  <h3 class="font-bold">Page Not Found</h3>
+  <h2 class="font-bold">Página não encontrada</h2>
 
   <div class="error-desc">
-      Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+    <h3>
+      Desculpe, mas a página que você está procurando não foi encontrada. Tente verificar o URL em busca de erros e pressione o botão de atualização no seu navegador
+      ou tente encontrar outra coisa em nosso aplicativo. Caso deseje clique no botão voltar abaixo para retorna a ultima página.
+    </h3>
       <form class="form-inline m-t" role="form">
-          <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search for page">
-          </div>
-          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="button" onclick='history.go(-1)' class="btn btn-primary">Voltar</button>
       </form>
   </div>
 </div>

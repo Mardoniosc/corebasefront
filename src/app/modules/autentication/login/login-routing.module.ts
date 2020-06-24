@@ -8,8 +8,6 @@ import {
   AutenticacaoComponent,
 } from './components';
 
-import { NotFoundComponent } from '../../shared';
-
 export const LoginRoutes: Routes = [
   {
     path: 'login',
@@ -17,7 +15,6 @@ export const LoginRoutes: Routes = [
     children: [
       { path: '', component: LoginComponent },
       { path: 'forgot', component: ForgotComponent },
-      { path: 'not-found', component: NotFoundComponent },
     ],
   },
 ];

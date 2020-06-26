@@ -7,6 +7,7 @@ import {
   UsuarioListAllDTO,
   PerfilService,
   Perfil,
+  Pagination,
 } from 'src/app/modules/shared';
 import { API_CONFIG } from 'src/app/modules/shared/config';
 
@@ -24,6 +25,10 @@ export class LogAcessoComponent implements OnInit {
 
   usuario = {} as UsuarioListAllDTO;
 
+  paginacao = {} as Pagination;
+
+  numerosDePaginas = [];
+
   perfils: Perfil[];
 
   constructor(
@@ -40,12 +45,31 @@ export class LogAcessoComponent implements OnInit {
   }
 
   carregaHistoricoUsuario(): void {
-    this.historicoAcessoService.getAllHistoryAccessPagination().subscribe(
-      (data) => {
+    this.historicoAcessoService
+      .getAllHistoryAccessPagination('ASC', 10, 'dataAcesso', 0)
+      .subscribe(
+        (data) => {
+          this.historicoAcessoDTO = data.content;
+          this.paginacao = data;
+          this.carregaPaginas();
+        },
+        (err) => console.log(err),
+      );
+  }
+
+  mudarPagina(page: number): void {
+    this.historicoAcessoService
+      .getAllHistoryAccessPagination('ASC', 10, 'dataAcesso', page)
+      .subscribe((data) => {
         this.historicoAcessoDTO = data.content;
-      },
-      (err) => console.log(err),
-    );
+        this.paginacao = data;
+      });
+  }
+
+  carregaPaginas(): void {
+    this.numerosDePaginas = Array(this.paginacao.totalPages)
+      .fill(this.paginacao.totalPages, 0, this.paginacao.totalPages)
+      .map((x, i) => i);
   }
 
   carregaUsers(): void {

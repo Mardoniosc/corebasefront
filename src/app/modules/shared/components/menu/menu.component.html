@@ -24,7 +24,7 @@
 
           <!-- MENU LATERAL -->
           <li *ngFor="let item of permissoesFiltradas">
-            <a *ngIf="!item.permissaoPai" href="http://localhost:4200{{ item.url }}">
+            <a *ngIf="!item.permissaoPai" href="{{ item.url }}">
               <i class="fa fa-{{retornaicone(item.descricao) }}"></i>
               <span class="nav-label">{{ item.descricao }}</span>
               <span class="fa arrow" *ngIf="(item.descricao != 'Home' && item.descricao != 'Dashboard')"></span>

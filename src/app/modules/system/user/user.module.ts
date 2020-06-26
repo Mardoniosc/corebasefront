@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -33,6 +34,7 @@ import { SharedModule, MenuModule } from '../../shared';
     MatFormFieldModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     SharedModule,
   ],
   providers: [MatDatepickerModule],

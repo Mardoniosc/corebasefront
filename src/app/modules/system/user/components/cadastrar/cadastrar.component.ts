@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PerfilService, UsuarioService } from 'src/app/modules/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -40,6 +41,7 @@ export class CadastrarComponent implements OnInit {
     private router: Router,
     private perfilService: PerfilService,
     private snackBar: MatSnackBar,
+    private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService,
   ) {}
 
@@ -95,11 +97,13 @@ export class CadastrarComponent implements OnInit {
   }
 
   cadastrarUsuario(): void {
+    this.spinner.show();
     if (this.form.invalid) {
       this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
         duration: 3000,
       });
       this.toucheCamposFormulario();
+      this.spinner.hide();
       return;
     }
 
@@ -114,7 +118,7 @@ export class CadastrarComponent implements OnInit {
       this.usuarioService.insert(this.usuarioNew).subscribe(
         (data) => {
           const msg = 'Usuário cadastradas com sucesso!';
-
+          this.spinner.hide();
           Swal.fire({
             title: msg,
             icon: 'success',
@@ -126,6 +130,7 @@ export class CadastrarComponent implements OnInit {
           }, 1900);
         },
         (err) => {
+          this.spinner.hide();
           this.erroGeral = err.error;
 
           if (this.erroGeral.errors) {

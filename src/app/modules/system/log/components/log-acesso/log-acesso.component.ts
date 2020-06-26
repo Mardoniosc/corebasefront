@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Usuario,
-  HistoricoAcesso,
+  HistoricoAcessoDTO,
+  HistoricoAcessoService,
   UsuarioService,
+  StorangeService,
+  UsuarioListAllDTO,
+  PerfilService,
+  Perfil,
 } from 'src/app/modules/shared';
+import { API_CONFIG } from 'src/app/modules/shared/config';
 
 @Component({
   selector: 'app-log-acesso',
@@ -11,30 +16,78 @@ import {
   styleUrls: ['./log-acesso.component.css'],
 })
 export class LogAcessoComponent implements OnInit {
-  usuarios: Usuario[] = [];
+  baseUrlServidor = API_CONFIG.baseUrl;
 
-  acessos: HistoricoAcesso[] = [];
+  historicoAcessoDTO: HistoricoAcessoDTO[];
 
-  constructor(private usuarioService: UsuarioService) {}
+  usuarios: UsuarioListAllDTO[];
+
+  usuario = {} as UsuarioListAllDTO;
+
+  perfils: Perfil[];
+
+  constructor(
+    private historicoAcessoService: HistoricoAcessoService,
+    private userService: UsuarioService,
+    private storangeService: StorangeService,
+    private perfilService: PerfilService,
+  ) {}
 
   ngOnInit(): void {
-    this.carregaUsuarios();
+    this.carregaHistoricoUsuario();
+    this.carregaPerfils();
+    this.carregaUsers();
   }
 
-  carregaUsuarios(): void {
-    this.usuarioService.getAll().subscribe((data) => {
-      data.forEach((user) => {
-        this.usuarioService.getUserById(user.id).subscribe((newUser) => {
-          this.usuarios.push(newUser);
-          this.carregaHistoricoDeAcesso(newUser);
-        });
-      });
+  carregaHistoricoUsuario(): void {
+    this.historicoAcessoService.getAllHistoryAccessPagination().subscribe(
+      (data) => {
+        this.historicoAcessoDTO = data.content;
+      },
+      (err) => console.log(err),
+    );
+  }
+
+  carregaUsers(): void {
+    this.userService.getAll().subscribe((data) => {
+      this.storangeService.setLocalAllUsers(data);
+      this.usuarios = this.storangeService.getLocalAllUsers();
     });
   }
 
-  carregaHistoricoDeAcesso(user: Usuario): void {
-    user.historicosAcesso.forEach((h) => {
-      this.acessos.push(h);
-    });
+  carregaPerfils(): void {
+    this.perfilService.getAll().subscribe(
+      (data) => {
+        this.storangeService.setLocalPerfils(data);
+      },
+      (err) => console.log(err),
+    );
+  }
+
+  filtraInfoUser(infoDesejada: string, id: number): string | false {
+    this.usuarios = this.storangeService.getLocalAllUsers();
+
+    if (!this.usuarios) {
+      return false;
+    }
+
+    this.usuario = this.usuarios.find((user) => user.id === id);
+    if (this.usuario) {
+      switch (infoDesejada) {
+        case 'usuario':
+          return this.usuario.nome;
+        case 'email':
+          return this.usuario.email;
+        case 'perfil':
+          return 'Master';
+        case 'status':
+          return this.usuario.status.toString();
+        case 'img':
+          return this.usuario.imagem;
+        default:
+          return false;
+      }
+    }
+    return false;
   }
 }

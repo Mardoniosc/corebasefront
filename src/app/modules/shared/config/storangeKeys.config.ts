@@ -4,4 +4,5 @@ export const STORAGE_KEYS = {
   localProfiles: '@corebase:perfils',
   localPermitions: '@corebase:permissoes',
   localpefpems: '@corebase:perfilpermissoes',
+  localinfoUser: '@corebase:infoUserLogged',
 };

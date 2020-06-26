@@ -5,6 +5,7 @@ import {
   Permissoes,
   PerfilPermissaoDTO,
   UsuarioListAllDTO,
+  InfoUserLogged,
 } from '../models';
 import { STORAGE_KEYS } from '../config';
 
@@ -103,5 +104,24 @@ export class StorangeService {
     }
 
     localStorage.setItem(STORAGE_KEYS.localAllUsers, JSON.stringify(obj));
+  }
+
+  getLocalinfoUsers(): InfoUserLogged[] {
+    const pps = localStorage.getItem(STORAGE_KEYS.localinfoUser);
+
+    if (pps == null) {
+      return null;
+    }
+
+    return JSON.parse(pps);
+  }
+
+  setLocalinfoUsers(obj: InfoUserLogged[]): void {
+    if (obj == null) {
+      localStorage.removeItem(STORAGE_KEYS.localinfoUser);
+      return;
+    }
+
+    localStorage.setItem(STORAGE_KEYS.localinfoUser, JSON.stringify(obj));
   }
 }

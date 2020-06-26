@@ -26,7 +26,6 @@
                                 <tr>
                                   <th>Código</th>
                                   <th>Data do acesso</th>
-                                  <th>Cliente</th>
                                   <th>Usuário</th>
                                   <th>Foto</th>
                                   <th>Email</th>
@@ -36,30 +35,27 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr class='gradeX' *ngFor="let item of acessos">
+                                <tr class='gradeX' *ngFor="let item of historicoAcessoDTO">
                                   <td>{{ item.id }}</td>
                                   <td> {{ item.dataAcesso | date: 'dd/MM/y HH:mm' }} </td>
-                                  <td>Tecnisys</td>
-                                  <td>Alessandra</td>
-                                  <td> sem foto</td>
-                                  <td>gmferreira1982@gmail.com</td>
-                                  <td>Usuário</td>
-                                  <td>10.168.252.103</td>
+                                  <td>{{ filtraInfoUser('usuario', item.usuarioId) }}</td>
                                   <td>
-                                    <b class='text-info'>Ativado</b>
+                                    <img
+                                      *ngIf="filtraInfoUser('img', item.usuarioId) !== null"
+                                      src="{{baseUrlServidor}}/{{ filtraInfoUser('img', item.usuarioId) }}"
+                                      alt=""
+                                      style="width: 50px; height: 50px; border-radius: 50%;"
+                                    >
+                                    <p *ngIf="filtraInfoUser('img', item.usuarioId) === null">
+                                      <img src="../../../../../../assets/img/user-default.png" style="width: 50px; height: 50px; border-radius: 50%;" alt="">
+                                    </p>
+
                                   </td>
-                                </tr>
-                                <tr class='gradeX'>
-                                  <td>2872</td>
-                                  <td>21/05/2020 12:03</td>
-                                  <td>Tecnisys</td>
-                                  <td>Alessandra</td>
-                                  <td> sem foto</td>
-                                  <td>gmferreira1982@gmail.com</td>
-                                  <td>Usuário</td>
-                                  <td>10.168.252.103</td>
+                                  <td>{{ filtraInfoUser('email', item.usuarioId) }}</td>
+                                  <td>{{ filtraInfoUser('perfil', item.usuarioId) }}</td>
+                                  <td> {{ item.loginIp === null ? '0.0.0.0' : item.loginIp }} </td>
                                   <td>
-                                    <b class='text-info'>Ativado</b>
+                                    <b class='text-info'>{{ filtraInfoUser('status', item.usuarioId) === '1' ? 'Ativado': 'Desativado' }}</b>
                                   </td>
                                 </tr>
                               </tbody>

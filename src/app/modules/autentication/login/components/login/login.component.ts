@@ -54,6 +54,18 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.criarForm();
     this.verificaUserLogged();
+    this.pegaIpUser();
+  }
+
+  pegaIpUser(): void {
+    this.subscriptions.push(
+      this.loginService.pegaIpUser().subscribe(
+        (data) => {
+          this.infoUserLogged = data;
+        },
+        (err) => console.log(err),
+      ),
+    );
   }
 
   verificaUserLogged(): void {
@@ -86,6 +98,7 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.login = this.form.value;
+    this.login.loginIp = this.infoUserLogged.query;
     this.subscriptions.push(
       this.loginService.logar(this.login).subscribe(
         (data) => {

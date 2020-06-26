@@ -36,9 +36,10 @@ export class LogAcessoComponent implements OnInit {
   ngOnInit(): void {
     this.carregaHistoricoUsuario();
     this.carregaPerfils();
+    this.carregaUsers();
   }
 
-  carregaHistoricoUsuario() {
+  carregaHistoricoUsuario(): void {
     this.historicoAcessoService.getAllHistoryAccessPagination().subscribe(
       (data) => {
         this.historicoAcessoDTO = data.content;
@@ -54,7 +55,7 @@ export class LogAcessoComponent implements OnInit {
     });
   }
 
-  carregaPerfils() {
+  carregaPerfils(): void {
     this.perfilService.getAll().subscribe(
       (data) => {
         this.storangeService.setLocalPerfils(data);
@@ -67,7 +68,7 @@ export class LogAcessoComponent implements OnInit {
     this.usuarios = this.storangeService.getLocalAllUsers();
 
     if (!this.usuarios) {
-      this.carregaUsers();
+      return false;
     }
 
     this.usuario = this.usuarios.find((user) => user.id === id);
@@ -87,7 +88,6 @@ export class LogAcessoComponent implements OnInit {
           return false;
       }
     }
-
     return false;
   }
 }

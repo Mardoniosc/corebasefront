@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Login, Usuario, Forgot } from '../../models';
+import { Login, Usuario, Forgot, InfoUserLogged } from '../../models';
 import { API_CONFIG } from '../../config';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class LoginService {
     return this.http.post(`${API_CONFIG.baseUrl + this.PATH}/forgot`, email);
   }
 
-  pegaIpUser(): Observable<any> {
-    return this.http.get(API_CONFIG.pegaIp);
+  pegaIpUser(): Observable<InfoUserLogged> {
+    return this.http.get<InfoUserLogged>(API_CONFIG.pegaIp);
   }
 }

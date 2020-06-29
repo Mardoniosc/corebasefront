@@ -7,8 +7,8 @@ import {
   ErroGeral,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { API_CONFIG } from 'src/app/modules/shared/config';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -34,8 +34,8 @@ export class ListarComponent implements OnInit {
   baseUrlServidor = API_CONFIG.baseUrl;
 
   constructor(
+    private toast: ToastrService,
     private usuarioService: UsuarioService,
-    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -59,16 +59,16 @@ export class ListarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },
@@ -105,16 +105,16 @@ export class ListarComponent implements OnInit {
             if (this.erroGeral.errors) {
               this.erroGeral.errors.forEach((e) => {
                 this.erroDTO = e;
-                this.snackBar.open(
+                this.toast.error(
                   `Erro ${this.erroGeral.status} ${e.message}`,
                   e.fieldName,
-                  { duration: 3000 },
+                  { timeOut: 4000 },
                 );
               });
             } else {
               const title = `Erro ${this.erroGeral.status}`;
-              this.snackBar.open(this.erroGeral.message, title, {
-                duration: 3000,
+              this.toast.error(this.erroGeral.message, title, {
+                timeOut: 3000,
               });
             }
           },

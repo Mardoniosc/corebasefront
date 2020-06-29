@@ -15,7 +15,6 @@ import {
   InfoUserLogged,
   PerfilPermissaoService,
 } from 'src/app/modules/shared';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private storangeService: StorangeService,
     private ppService: PerfilPermissaoService,
-    private snackBar: MatSnackBar,
     private userLoggedService: UserLoggedService,
     private toast: ToastrService,
     private spinner: NgxSpinnerService,
@@ -65,7 +63,11 @@ export class LoginComponent implements OnInit {
         (data) => {
           this.infoUserLogged = data;
         },
-        (err) => console.log(err),
+        (err) => {
+          this.toast.error('Erro ao recuperar localização', 'Erro', {
+            timeOut: 4000,
+          });
+        },
       ),
     );
   }
@@ -91,10 +93,10 @@ export class LoginComponent implements OnInit {
       this.infoUserLogged = data;
     });
     if (this.form.invalid) {
-      this.snackBar.open(
+      this.toast.error(
         'Preechimento inválido do formularios de login',
         'Erro ao ler dados',
-        { duration: 3000 },
+        { timeOut: 3000 },
       );
       this.spinner.hide();
       return;
@@ -123,10 +125,10 @@ export class LoginComponent implements OnInit {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
               this.spinner.hide();
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {

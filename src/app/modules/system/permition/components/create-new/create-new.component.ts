@@ -7,6 +7,7 @@ import {
   ErroGeral,
   ErroDTO,
 } from 'src/app/modules/shared';
+import { ToastrService } from 'ngx-toastr';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -28,6 +29,7 @@ export class CreateNewComponent implements OnInit {
 
   constructor(
     private storangeService: StorangeService,
+    private toast: ToastrService,
     private fb: FormBuilder,
     private permissoesSerivce: PermissaoService,
     private snackBar: MatSnackBar,
@@ -53,12 +55,29 @@ export class CreateNewComponent implements OnInit {
         this.storangeService.setLocalPermition(this.permissoes);
       },
 
-      (err) => console.log(err),
+      (err) => {
+        this.erroGeral = err.error;
+
+        if (this.erroGeral.errors) {
+          this.erroGeral.errors.forEach((e) => {
+            this.erroDTO = e;
+            this.toast.error(
+              `Erro ${this.erroGeral.status} ${e.message}`,
+              e.fieldName,
+              { timeOut: 4000 },
+            );
+          });
+        } else {
+          const title = `Erro ${this.erroGeral.status}`;
+          this.toast.error(this.erroGeral.message, title, {
+            timeOut: 3000,
+          });
+        }
+      },
     );
   }
 
   cadastrarNovaPermissao(): void {
-    console.log(this.form);
     if (this.form.invalid) {
       const msg = 'Preenchimento do formulário inválido!';
       this.snackBar.open(msg, 'Erro validação', { duration: 4000 });
@@ -74,8 +93,8 @@ export class CreateNewComponent implements OnInit {
 
     this.permissoesSerivce.insert(this.permissaoDTO).subscribe(
       (data) => {
-        this.snackBar.open('Permissão Cadastrada com sucesso!', 'Sucesso', {
-          duration: 4000,
+        this.toast.success('Permissão Cadastrada com sucesso!', 'Sucesso', {
+          timeOut: 4000,
         });
 
         setTimeout(() => {
@@ -88,16 +107,16 @@ export class CreateNewComponent implements OnInit {
         if (this.erroGeral.errors) {
           this.erroGeral.errors.forEach((e) => {
             this.erroDTO = e;
-            this.snackBar.open(
+            this.toast.error(
               `Erro ${this.erroGeral.status} ${e.message}`,
               e.fieldName,
-              { duration: 3000 },
+              { timeOut: 4000 },
             );
           });
         } else {
           const title = `Erro ${this.erroGeral.status}`;
-          this.snackBar.open(this.erroGeral.message, title, {
-            duration: 3000,
+          this.toast.error(this.erroGeral.message, title, {
+            timeOut: 3000,
           });
         }
       },

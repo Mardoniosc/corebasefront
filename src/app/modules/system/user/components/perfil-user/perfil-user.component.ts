@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { API_CONFIG } from 'src/app/modules/shared/config';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
@@ -37,7 +36,6 @@ export class PerfilUserComponent implements OnInit {
 
   constructor(
     private storangeService: StorangeService,
-    private snackBar: MatSnackBar,
     private toast: ToastrService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -75,11 +73,11 @@ export class PerfilUserComponent implements OnInit {
     if (this.form.invalid) {
       this.spinner.hide();
 
-      this.snackBar.open(
+      this.toast.error(
         'Favor selecionar nova imagem de perfil',
         'Erro 404 Not Found',
         {
-          duration: 3000,
+          timeOut: 4000,
         },
       );
     }

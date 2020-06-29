@@ -11,6 +11,7 @@ import {
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -39,6 +40,7 @@ export class ListarComponent implements OnInit {
   constructor(
     private perfilService: PerfilService,
     private snackBar: MatSnackBar,
+    private toast: ToastrService,
     private permissaoService: PermissaoService,
     private perfilPermissaoService: PerfilPermissaoService,
   ) {}
@@ -65,16 +67,16 @@ export class ListarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },
@@ -94,16 +96,16 @@ export class ListarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },
@@ -123,16 +125,16 @@ export class ListarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },
@@ -192,16 +194,16 @@ export class ListarComponent implements OnInit {
             if (this.erroGeral.errors) {
               this.erroGeral.errors.forEach((e) => {
                 this.erroDTO = e;
-                this.snackBar.open(
+                this.toast.error(
                   `Erro ${this.erroGeral.status} ${e.message}`,
                   e.fieldName,
-                  { duration: 3000 },
+                  { timeOut: 4000 },
                 );
               });
             } else {
               const title = `Erro ${this.erroGeral.status}`;
-              this.snackBar.open(this.erroGeral.message, title, {
-                duration: 3000,
+              this.toast.error(this.erroGeral.message, title, {
+                timeOut: 3000,
               });
             }
           },

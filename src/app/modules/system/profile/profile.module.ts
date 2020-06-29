@@ -7,12 +7,18 @@ import {
   ListarComponent,
   CadastrarComponent,
   PerfilComponent,
+  AtualizarComponent,
 } from './components';
 
 import { SharedModule, MenuModule } from '../../shared';
 
 @NgModule({
-  declarations: [ListarComponent, CadastrarComponent, PerfilComponent],
+  declarations: [
+    ListarComponent,
+    CadastrarComponent,
+    PerfilComponent,
+    AtualizarComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

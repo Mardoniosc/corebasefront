@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 import {
   CadastrarComponent,
@@ -32,6 +33,7 @@ import { SharedModule, MenuModule } from '../../shared';
     MatDatepickerModule,
     MatFormFieldModule,
     MatNativeDateModule,
+    NgxSpinnerModule,
     ReactiveFormsModule,
     SharedModule,
   ],

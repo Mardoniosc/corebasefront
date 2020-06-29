@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 import { API_CONFIG } from 'src/app/modules/shared/config';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 import {
   Usuario,
   StorangeService,
@@ -35,6 +38,8 @@ export class PerfilUserComponent implements OnInit {
   constructor(
     private storangeService: StorangeService,
     private snackBar: MatSnackBar,
+    private toast: ToastrService,
+    private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
   ) {}
@@ -66,7 +71,10 @@ export class PerfilUserComponent implements OnInit {
   }
 
   atualizarImagePerfil(): void {
+    this.spinner.show();
     if (this.form.invalid) {
+      this.spinner.hide();
+
       this.snackBar.open(
         'Favor selecionar nova imagem de perfil',
         'Erro 404 Not Found',
@@ -80,8 +88,13 @@ export class PerfilUserComponent implements OnInit {
     this.subscriptions.push(
       this.usuarioService.updateImage(this.file, this.usuario.id).subscribe(
         (data) => {
-          this.snackBar.open('Imagem atualizada com sucesso', 'Sucesso', {
-            duration: 3000,
+          this.spinner.hide();
+          Swal.fire({
+            title: 'sucesso',
+            text: 'Imagem do perfil atualizada!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1000,
           });
           this.atualizaDadosUser();
           setTimeout(() => {
@@ -90,20 +103,23 @@ export class PerfilUserComponent implements OnInit {
         },
         (err) => {
           this.erroGeral = err.error;
+          this.spinner.hide();
 
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                {
+                  timeOut: 4000,
+                },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },

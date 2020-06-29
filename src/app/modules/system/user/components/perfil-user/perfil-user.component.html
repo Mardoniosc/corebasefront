@@ -1,3 +1,8 @@
+<ngx-spinner color = "#fff" [fullScreen] = "true" type="ball-clip-rotate-multiple" >
+  <h1 style="color: aliceblue;">
+    Atualizando...
+  </h1>
+</ngx-spinner>
 <div id="wrapper">
   <app-menu></app-menu>
 
@@ -25,8 +30,8 @@
 
                             <div class="profile-image">
                               <form class="form-horizontal" [formGroup]="form">                                <label for="avatar" style="cursor: pointer;">
-                                  <img *ngIf="usuario.imagem" for='imagemProfile' alt="image" class="img-circle circle-border m-b-md" src="{{baseUrlServidor}}/{{ usuario.imagem }}" style="width: 100px; height: 100px;"/>
-                                  <img *ngIf="!usuario.imagem" alt="image" class="img-circle circle-border m-b-md" src="../../../../../assets/img/user-default.png" style="width: 130px; height: 130px;"/>
+                                  <img *ngIf="usuario.imageProfile" for='imagemProfile' alt="image" class="img-circle circle-border m-b-md" src="data:image/jpeg;base64,{{ usuario.imageProfile }}" style="width: 100px; height: 100px;"/>
+                                  <img *ngIf="!usuario.imageProfile" alt="image" class="img-circle circle-border m-b-md" src="../../../../../assets/img/user-default.png" style="width: 130px; height: 130px;"/>
                                   <input
                                     formControlName="file"
                                     type="file"

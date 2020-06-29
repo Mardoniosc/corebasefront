@@ -15,10 +15,18 @@ export const UserRoutes: Routes = [
   {
     path: 'usuario',
     component: UsuarioComponent,
-    canActivate: [AuthGuardService, AutenticaRotaSerivce],
+    canActivate: [AuthGuardService],
     children: [
-      { path: 'cadastrar', component: CadastrarComponent },
-      { path: 'pesquisar', component: ListarComponent },
+      {
+        path: 'cadastrar',
+        component: CadastrarComponent,
+        canActivate: [AutenticaRotaSerivce],
+      },
+      {
+        path: 'pesquisar',
+        component: ListarComponent,
+        canActivate: [AutenticaRotaSerivce],
+      },
       { path: 'perfil', component: PerfilUserComponent },
       { path: 'atualizar/:userId', component: AtualizarComponent },
     ],

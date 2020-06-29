@@ -83,6 +83,7 @@ export class PerfilUserComponent implements OnInit {
           this.snackBar.open('Imagem atualizada com sucesso', 'Sucesso', {
             duration: 3000,
           });
+          this.atualizaDadosUser();
           setTimeout(() => {
             this.refresh();
           }, 1000);
@@ -108,6 +109,14 @@ export class PerfilUserComponent implements OnInit {
         },
       ),
     );
+  }
+
+  atualizaDadosUser(): void {
+    this.storangeService.setLocalUser(null);
+    this.usuarioService.getUserById(this.usuario.id).subscribe((data) => {
+      this.storangeService.setLocalUser(data);
+      this.carregaDadosUsuario();
+    });
   }
 
   refresh() {

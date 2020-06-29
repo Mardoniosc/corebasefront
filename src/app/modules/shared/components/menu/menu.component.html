@@ -5,8 +5,8 @@
         <!-- PERFIL DE USUARIO LOGADO -->
         <li class="nav-header">
               <div class="dropdown profile-element"> <span>
-                      <img *ngIf="usuario.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ usuario.imagem }}" style="width: 70px; height: 70px;"/>
-                      <img *ngIf="!usuario.imagem" alt="image" class="img-circle" src="../../../../../assets/img/user-default.png" style="width: 70px; height: 70px;"/>
+                      <img *ngIf="usuario.imageProfile" alt="image" class="img-circle" src="data:image/jpeg;base64,{{ usuario.imageProfile }}" style="width: 70px; height: 70px;"/>
+                      <img *ngIf="!usuario.imageProfile" alt="image" class="img-circle" src="../../../../../assets/img/user-default.png" style="width: 70px; height: 70px;"/>
                        </span>
                   <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                       <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ usuario.nome }}</strong>

@@ -131,8 +131,8 @@ export class AtualizarComponent implements OnInit {
 
   atualizarUsuario(): void {
     if (this.form.invalid) {
-      this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
-        duration: 3000,
+      this.toast.info('Formulário com campos invalidos!', 'Erro!', {
+        timeOut: 3000,
       });
       this.toucheCamposFormulario();
       return;

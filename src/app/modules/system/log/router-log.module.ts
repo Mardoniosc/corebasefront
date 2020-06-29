@@ -7,13 +7,13 @@ import {
   LogAcessoComponent,
   LogComponent,
 } from './components';
-import { AuthGuardService } from '../../shared';
+import { AuthGuardService, AutenticaRotaSerivce } from '../../shared';
 
 export const LogRoutes: Routes = [
   {
     path: 'log',
     component: LogComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService, AutenticaRotaSerivce],
 
     children: [
       { path: 'pesquisar', component: ListaLogsComponent },

@@ -141,7 +141,7 @@ export class ListarComponent implements OnInit {
   }
 
   verificaPermissao(perfil: number, permissao: number): boolean {
-    const response = this.perfilPermissao.find(
+    const response = this.perfilPermissao?.find(
       (x) => x.perfilId === perfil && x.permissaoId === permissao,
     );
     if (response) {

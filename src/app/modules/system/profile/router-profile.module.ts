@@ -6,8 +6,9 @@ import {
   CadastrarComponent,
   ListarComponent,
   PerfilComponent,
+  AtualizarComponent,
 } from './components';
-import { AuthGuardService } from '../../shared';
+import { AuthGuardService, AutenticaRotaSerivce } from '../../shared';
 
 export const ProfileRoutes: Routes = [
   {
@@ -15,8 +16,17 @@ export const ProfileRoutes: Routes = [
     component: PerfilComponent,
     canActivate: [AuthGuardService],
     children: [
-      { path: 'cadastrar', component: CadastrarComponent },
-      { path: 'pesquisar', component: ListarComponent },
+      {
+        path: 'cadastrar',
+        component: CadastrarComponent,
+        canActivate: [AutenticaRotaSerivce],
+      },
+      {
+        path: 'pesquisar',
+        component: ListarComponent,
+        canActivate: [AutenticaRotaSerivce],
+      },
+      { path: 'atualizar/:perfilId', component: AtualizarComponent },
     ],
   },
 ];

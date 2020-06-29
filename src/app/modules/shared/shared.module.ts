@@ -11,6 +11,8 @@ import {
   UserLoggedService,
   UserGuardService,
   AuthGuardService,
+  AutenticaRotaSerivce,
+  HistoricoAcessoService,
 } from './services';
 import {
   BarraDeMenuComponent,
@@ -38,6 +40,8 @@ import { CpfPipe } from './pipe';
     UserLoggedService,
     UserGuardService,
     AuthGuardService,
+    AutenticaRotaSerivce,
+    HistoricoAcessoService,
   ],
   exports: [BarraDeMenuComponent, NotFoundComponent, MascaraDirective, CpfPipe],
 })

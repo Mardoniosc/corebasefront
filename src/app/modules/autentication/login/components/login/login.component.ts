@@ -13,6 +13,7 @@ import {
   UserLoggedService,
   StorangeService,
   InfoUserLogged,
+  PerfilPermissaoService,
 } from 'src/app/modules/shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private loginService: LoginService,
     private storangeService: StorangeService,
+    private ppService: PerfilPermissaoService,
     private snackBar: MatSnackBar,
     private userLoggedService: UserLoggedService,
     private toast: ToastrService,
@@ -97,8 +99,10 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       return;
     }
+
     this.login = this.form.value;
     this.login.loginIp = this.infoUserLogged.query;
+    this.carregaPerfilPermissoesLocalStorange();
     this.subscriptions.push(
       this.loginService.logar(this.login).subscribe(
         (data) => {
@@ -139,5 +143,12 @@ export class LoginComponent implements OnInit {
 
   refresh(): void {
     window.location.reload();
+  }
+
+  carregaPerfilPermissoesLocalStorange(): void {
+    console.log('salvando');
+    this.ppService.getAll().subscribe((data) => {
+      this.storangeService.setLocalPP(data);
+    });
   }
 }

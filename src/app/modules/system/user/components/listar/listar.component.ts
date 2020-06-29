@@ -5,7 +5,6 @@ import {
   Usuario,
   ErroDTO,
   ErroGeral,
-  StorangeService,
 } from 'src/app/modules/shared';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,7 +36,6 @@ export class ListarComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService,
     private snackBar: MatSnackBar,
-    private storangeService: StorangeService,
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +52,6 @@ export class ListarComponent implements OnInit {
         (data) => {
           this.usuarios = data;
           this.usuariosFiltrados = data;
-          this.storangeService.setLocalAllUsers(data);
         },
         (err) => {
           this.erroGeral = err.error;
@@ -128,7 +125,7 @@ export class ListarComponent implements OnInit {
 
   filtraUsuarioPeloNome(nome: string): void {
     if (!nome) {
-      this.usuariosFiltrados = this.storangeService.getLocalAllUsers();
+      this.usuariosFiltrados = this.usuarios;
     } else {
       this.usuariosFiltrados = this.usuarios.filter((x) =>
         x.nome.trim().toLowerCase().includes(nome.trim().toLowerCase()),

@@ -25,4 +25,8 @@ export class PerfilService {
   insert(perfil: PerfilDTO): Observable<any> {
     return this.http.post(API_CONFIG.baseUrl + this.PATH, perfil);
   }
+
+  update(id: number, perfil: PerfilDTO): Observable<any> {
+    return this.http.put(`${API_CONFIG.baseUrl + this.PATH}/${id}`, perfil);
+  }
 }

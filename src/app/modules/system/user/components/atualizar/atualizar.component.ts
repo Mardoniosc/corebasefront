@@ -10,7 +10,6 @@ import {
   PerfilDTO,
   ErroGeral,
   ErroDTO,
-  UsuarioNewDTO,
   UsuarioListAllDTO,
   Usuario,
 } from '../../../../shared/models';

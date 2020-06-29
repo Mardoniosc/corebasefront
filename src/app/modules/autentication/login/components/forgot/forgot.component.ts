@@ -8,8 +8,8 @@ import {
 } from 'src/app/modules/shared';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -36,7 +36,7 @@ export class ForgotComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar,
+    private toast: ToastrService,
     private loginService: LoginService,
     private spinner: NgxSpinnerService,
   ) {}
@@ -59,8 +59,8 @@ export class ForgotComponent implements OnInit {
     this.spinner.show();
     if (this.form.invalid) {
       this.spinner.hide();
-      this.snackBar.open('E-mail inválido', 'Erro no preenchimento', {
-        duration: 3000,
+      this.toast.error('E-mail inválido', 'Erro no preenchimento', {
+        timeOut: 3000,
       });
       this.carregando = false;
       return;
@@ -85,16 +85,18 @@ export class ForgotComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                {
+                  timeOut: 4000,
+                },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 4000,
             });
           }
         },

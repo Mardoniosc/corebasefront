@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   PerfilDTO,
@@ -32,7 +33,7 @@ export class AtualizarComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router,
+    private toast: ToastrService,
     private snackBar: MatSnackBar,
     private perfilService: PerfilService,
   ) {}
@@ -90,16 +91,16 @@ export class AtualizarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },

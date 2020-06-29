@@ -10,6 +10,7 @@ import {
   Pagination,
 } from 'src/app/modules/shared';
 import { API_CONFIG } from 'src/app/modules/shared/config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-log-acesso',
@@ -37,6 +38,7 @@ export class LogAcessoComponent implements OnInit {
     private historicoAcessoService: HistoricoAcessoService,
     private userService: UsuarioService,
     private storangeService: StorangeService,
+    private toast: ToastrService,
     private perfilService: PerfilService,
   ) {}
 
@@ -55,7 +57,11 @@ export class LogAcessoComponent implements OnInit {
           this.paginacao = data;
           this.carregaPaginas();
         },
-        (err) => console.log(err),
+        (err) => {
+          this.toast.error('Erro na busca de Historico', 'Erro', {
+            timeOut: 4000,
+          });
+        },
       );
   }
 
@@ -85,7 +91,11 @@ export class LogAcessoComponent implements OnInit {
       (data) => {
         this.storangeService.setLocalPerfils(data);
       },
-      (err) => console.log(err),
+      (err) => {
+        this.toast.error('Erro ao buscar Perfils', 'Erro', {
+          timeOut: 4000,
+        });
+      },
     );
   }
 

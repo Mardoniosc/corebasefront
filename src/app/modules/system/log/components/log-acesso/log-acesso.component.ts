@@ -23,6 +23,8 @@ export class LogAcessoComponent implements OnInit {
 
   usuarios: UsuarioListAllDTO[];
 
+  usuariosFiltrados: UsuarioListAllDTO[];
+
   usuario = {} as UsuarioListAllDTO;
 
   paginacao = {} as Pagination;
@@ -74,8 +76,7 @@ export class LogAcessoComponent implements OnInit {
 
   carregaUsers(): void {
     this.userService.getAll().subscribe((data) => {
-      this.storangeService.setLocalAllUsers(data);
-      this.usuarios = this.storangeService.getLocalAllUsers();
+      this.usuarios = data;
     });
   }
 
@@ -89,13 +90,13 @@ export class LogAcessoComponent implements OnInit {
   }
 
   filtraInfoUser(infoDesejada: string, id: number): string | false {
-    this.usuarios = this.storangeService.getLocalAllUsers();
+    this.usuariosFiltrados = this.usuarios;
 
-    if (!this.usuarios) {
+    if (!this.usuariosFiltrados) {
       return false;
     }
 
-    this.usuario = this.usuarios.find((user) => user.id === id);
+    this.usuario = this.usuariosFiltrados.find((user) => user.id === id);
     if (this.usuario) {
       switch (infoDesejada) {
         case 'usuario':

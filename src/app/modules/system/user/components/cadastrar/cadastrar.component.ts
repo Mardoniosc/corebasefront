@@ -3,10 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PerfilService, UsuarioService } from 'src/app/modules/shared';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+
 import {
   PerfilDTO,
   ErroGeral,
@@ -38,10 +37,8 @@ export class CadastrarComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
+    private toast: ToastrService,
     private perfilService: PerfilService,
-    private snackBar: MatSnackBar,
-    private spinner: NgxSpinnerService,
     private usuarioService: UsuarioService,
   ) {}
 
@@ -79,16 +76,16 @@ export class CadastrarComponent implements OnInit {
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },
@@ -97,13 +94,11 @@ export class CadastrarComponent implements OnInit {
   }
 
   cadastrarUsuario(): void {
-    this.spinner.show();
     if (this.form.invalid) {
-      this.snackBar.open('Formulário com campos invalidos!', 'Erro!', {
-        duration: 3000,
+      this.toast.error('Formulário com campos invalidos!', 'Erro!', {
+        timeOut: 4000,
       });
       this.toucheCamposFormulario();
-      this.spinner.hide();
       return;
     }
 
@@ -118,7 +113,7 @@ export class CadastrarComponent implements OnInit {
       this.usuarioService.insert(this.usuarioNew).subscribe(
         (data) => {
           const msg = 'Usuário cadastradas com sucesso!';
-          this.spinner.hide();
+
           Swal.fire({
             title: msg,
             icon: 'success',
@@ -130,22 +125,21 @@ export class CadastrarComponent implements OnInit {
           }, 1900);
         },
         (err) => {
-          this.spinner.hide();
           this.erroGeral = err.error;
 
           if (this.erroGeral.errors) {
             this.erroGeral.errors.forEach((e) => {
               this.erroDTO = e;
-              this.snackBar.open(
+              this.toast.error(
                 `Erro ${this.erroGeral.status} ${e.message}`,
                 e.fieldName,
-                { duration: 3000 },
+                { timeOut: 4000 },
               );
             });
           } else {
             const title = `Erro ${this.erroGeral.status}`;
-            this.snackBar.open(this.erroGeral.message, title, {
-              duration: 3000,
+            this.toast.error(this.erroGeral.message, title, {
+              timeOut: 3000,
             });
           }
         },

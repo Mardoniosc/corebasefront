@@ -12,7 +12,6 @@ import {
   ErroDTO,
   UserLoggedService,
   StorangeService,
-  InfoUserLogged,
   PerfilPermissaoService,
 } from 'src/app/modules/shared';
 
@@ -27,8 +26,6 @@ export class LoginComponent implements OnInit {
   private subscriptions: Subscription[] = [];
 
   login = {} as Login;
-
-  infoUserLogged = {} as InfoUserLogged;
 
   erroGeral = {} as ErroGeral;
 
@@ -54,22 +51,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.criarForm();
     this.verificaUserLogged();
-    this.pegaIpUser();
-  }
-
-  pegaIpUser(): void {
-    this.subscriptions.push(
-      this.loginService.pegaIpUser().subscribe(
-        (data) => {
-          this.infoUserLogged = data;
-        },
-        (err) => {
-          this.toast.error('Erro ao recuperar localização', 'Erro', {
-            timeOut: 4000,
-          });
-        },
-      ),
-    );
   }
 
   verificaUserLogged(): void {
@@ -89,9 +70,6 @@ export class LoginComponent implements OnInit {
 
   logar(): void {
     this.spinner.show();
-    this.loginService.pegaIpUser().subscribe((data) => {
-      this.infoUserLogged = data;
-    });
     if (this.form.invalid) {
       this.toast.error(
         'Preechimento inválido do formularios de login',
@@ -103,7 +81,6 @@ export class LoginComponent implements OnInit {
     }
 
     this.login = this.form.value;
-    this.login.loginIp = this.infoUserLogged.query;
     this.carregaPerfilPermissoesLocalStorange();
     this.subscriptions.push(
       this.loginService.logar(this.login).subscribe(

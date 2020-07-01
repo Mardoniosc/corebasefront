@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Usuario,
-  Perfil,
-  Permissoes,
-  PerfilPermissaoDTO,
-  UsuarioListAllDTO,
-  InfoUserLogged,
-} from '../models';
+import { Usuario, Perfil, Permissoes, PerfilPermissaoDTO } from '../models';
 import { STORAGE_KEYS } from '../config';
 
 @Injectable()
@@ -85,24 +78,5 @@ export class StorangeService {
     }
 
     localStorage.setItem(STORAGE_KEYS.localpefpems, JSON.stringify(obj));
-  }
-
-  getLocalinfoUsers(): InfoUserLogged[] {
-    const pps = localStorage.getItem(STORAGE_KEYS.localinfoUser);
-
-    if (pps == null) {
-      return null;
-    }
-
-    return JSON.parse(pps);
-  }
-
-  setLocalinfoUsers(obj: InfoUserLogged[]): void {
-    if (obj == null) {
-      localStorage.removeItem(STORAGE_KEYS.localinfoUser);
-      return;
-    }
-
-    localStorage.setItem(STORAGE_KEYS.localinfoUser, JSON.stringify(obj));
   }
 }

@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit {
             this.spinner.hide();
             this.refresh();
           } else {
+            this.spinner.hide();
             this.toast.error('Usuario Desativado', 'Erro', {
               timeOut: 4000,
             });

@@ -20,6 +20,12 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${API_CONFIG.baseUrl + this.PATH}/${id}`);
   }
 
+  getUserByEmail(email: string): Observable<Usuario> {
+    return this.http.get<Usuario>(
+      `${API_CONFIG.baseUrl + this.PATH}/email?email=${email}`,
+    );
+  }
+
   insert(usuario: UsuarioNewDTO): Observable<any> {
     return this.http.post(API_CONFIG.baseUrl + this.PATH, usuario);
   }

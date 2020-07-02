@@ -5,6 +5,8 @@ import {
   ErroDTO,
   ErroGeral,
   LoginService,
+  Usuario,
+  UsuarioService,
 } from 'src/app/modules/shared';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,6 +16,11 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+
+interface RadioButtonInterface {
+  codigo: number;
+  value: number;
+}
 
 @Component({
   selector: 'app-forgot',
@@ -25,6 +32,8 @@ export class ForgotComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
+  usuario = {} as Usuario;
+
   forgot = {} as Forgot;
 
   erroGeral = {} as ErroGeral;
@@ -33,11 +42,32 @@ export class ForgotComponent implements OnInit {
 
   carregando = false;
 
+  ativado1 = true;
+
+  ativado2 = false;
+
+  ativado3 = false;
+
+  ativado4 = false;
+
+  cpfArray: RadioButtonInterface[] = [];
+
+  anoNascimentoArray: RadioButtonInterface[] = [];
+
+  cpf5 = {} as RadioButtonInterface;
+
+  anoNascimento = {} as RadioButtonInterface;
+
+  CpfCorreto = false;
+
+  anoNascimentoCorreto = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private toast: ToastrService,
     private loginService: LoginService,
+    private userService: UsuarioService,
     private spinner: NgxSpinnerService,
   ) {}
 
@@ -55,7 +85,7 @@ export class ForgotComponent implements OnInit {
     });
   }
 
-  enviarEmail() {
+  buscarDadosUser(): void {
     this.spinner.show();
     if (this.form.invalid) {
       this.spinner.hide();
@@ -68,6 +98,109 @@ export class ForgotComponent implements OnInit {
 
     this.forgot = this.form.value;
 
+    this.subscriptions.push(
+      this.userService.getUserByEmail(this.forgot.email).subscribe(
+        (data) => {
+          this.getRandomArbitrary();
+          this.spinner.hide();
+          this.usuario = data;
+          this.ativarDesativaraba(2);
+          this.pegando5digitosCPF();
+          this.getAnoNascimento();
+        },
+        (err) => {
+          const title = `Erro 404`;
+          this.spinner.hide();
+          this.toast.error('Usuário não encontrado na base de dados', title, {
+            timeOut: 3000,
+          });
+        },
+      ),
+    );
+  }
+
+  pegando5digitosCPF(): void {
+    const cpfcinco = this.usuario.cpf.substr(0, 5);
+    const indice = Math.floor(Math.random() * 4);
+    const cpfTemp = {} as RadioButtonInterface;
+    cpfTemp.codigo = Number(cpfcinco);
+    cpfTemp.value = indice;
+    this.cpf5 = cpfTemp;
+    this.cpfArray[indice] = cpfTemp;
+  }
+
+  getAnoNascimento(): void {
+    let anoNascimento = this.usuario.dataNascimento.toString();
+    anoNascimento = anoNascimento.substr(0, 4);
+    const indice = Math.floor(Math.random() * 4);
+    const anoTemp = {} as RadioButtonInterface;
+    anoTemp.codigo = Number(anoNascimento);
+    anoTemp.value = indice;
+    this.anoNascimento = anoTemp;
+    this.anoNascimentoArray[indice] = anoTemp;
+  }
+
+  getRandomArbitrary(): void {
+    this.cpfArray = [];
+    this.anoNascimentoArray = [];
+    for (let i = 0; i < 4; i += 1) {
+      const randomCpfFake = Math.floor(Math.random() * (99889 - 10000) + 10000);
+      const cpfTemp = {} as RadioButtonInterface;
+      cpfTemp.codigo = randomCpfFake;
+      cpfTemp.value = i;
+      this.cpfArray.push(cpfTemp);
+    }
+
+    for (let i = 0; i < 4; i += 1) {
+      const randomCpfFake = Math.floor(Math.random() * (2020 - 1920) + 1920);
+      const dataNasicimentoTemp = {} as RadioButtonInterface;
+      dataNasicimentoTemp.codigo = randomCpfFake;
+      dataNasicimentoTemp.value = i;
+      this.anoNascimentoArray.push(dataNasicimentoTemp);
+    }
+  }
+
+  ativarDesativaraba(numeroAba: number): void {
+    switch (numeroAba) {
+      case 1:
+        this.ativado1 = true;
+        document.getElementById('aba1').click();
+        break;
+      case 2:
+        this.ativado2 = true;
+        document.getElementById('aba2').click();
+        break;
+      case 3:
+        this.ativado3 = true;
+        document.getElementById('aba3').click();
+        break;
+      case 4:
+        this.ativado4 = true;
+        document.getElementById('aba4').click();
+        break;
+      default:
+        this.ativado1 = true;
+        document.getElementById('aba1').click();
+    }
+  }
+
+  enviarEmail() {
+    if (!(this.CpfCorreto && this.anoNascimentoCorreto)) {
+      this.toast.info(
+        'Ano de nascimento/CPF não confere',
+        'Erro de validação',
+        {
+          timeOut: 4000,
+        },
+      );
+
+      setTimeout(() => {
+        this.refresh();
+      }, 3000);
+      return;
+    }
+
+    this.spinner.show();
     this.subscriptions.push(
       this.loginService.forgot(this.forgot).subscribe(
         (data) => {
@@ -102,5 +235,27 @@ export class ForgotComponent implements OnInit {
         },
       ),
     );
+  }
+
+  validaCpfOuAnoNascimento(indice: number, tipo: number): void {
+    if (tipo === 1) {
+      if (this.cpf5.value === indice) {
+        this.CpfCorreto = true;
+      } else {
+        this.CpfCorreto = false;
+      }
+    }
+
+    if (tipo === 2) {
+      if (this.anoNascimento.value === indice) {
+        this.anoNascimentoCorreto = true;
+      } else {
+        this.anoNascimentoCorreto = false;
+      }
+    }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

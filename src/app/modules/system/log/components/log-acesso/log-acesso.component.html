@@ -27,7 +27,6 @@
                                   <th>Código</th>
                                   <th>Data do acesso</th>
                                   <th>Usuário</th>
-                                  <th>Foto</th>
                                   <th>Email</th>
                                   <th>Perfil</th>
                                   <th>IP</th>
@@ -39,18 +38,6 @@
                                   <td>{{ item.id }}</td>
                                   <td> {{ item.dataAcesso | date: 'dd/MM/y HH:mm' }} </td>
                                   <td>{{ filtraInfoUser('usuario', item.usuarioId) }}</td>
-                                  <td>
-                                    <img
-                                      *ngIf="filtraInfoUser('img', item.usuarioId) !== null"
-                                      src="{{baseUrlServidor}}/{{ filtraInfoUser('img', item.usuarioId) }}"
-                                      alt=""
-                                      style="width: 50px; height: 50px; border-radius: 50%;"
-                                    >
-                                    <p *ngIf="filtraInfoUser('img', item.usuarioId) === null">
-                                      <img src="../../../../../../assets/img/user-default.png" style="width: 50px; height: 50px; border-radius: 50%;" alt="">
-                                    </p>
-
-                                  </td>
                                   <td>{{ filtraInfoUser('email', item.usuarioId) }}</td>
                                   <td>{{ filtraInfoUser('perfil', item.usuarioId) }}</td>
                                   <td> {{ item.loginIp === null ? '0.0.0.0' : item.loginIp }} </td>

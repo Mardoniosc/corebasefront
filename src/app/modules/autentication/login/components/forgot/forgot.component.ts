@@ -54,6 +54,14 @@ export class ForgotComponent implements OnInit {
 
   anoNascimentoArray: RadioButtonInterface[] = [];
 
+  cpf5 = {} as RadioButtonInterface;
+
+  anoNascimento = {} as RadioButtonInterface;
+
+  CpfCorreto = false;
+
+  anoNascimentoCorreto = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -117,6 +125,7 @@ export class ForgotComponent implements OnInit {
     const cpfTemp = {} as RadioButtonInterface;
     cpfTemp.codigo = Number(cpfcinco);
     cpfTemp.value = indice;
+    this.cpf5 = cpfTemp;
     this.cpfArray[indice] = cpfTemp;
   }
 
@@ -127,6 +136,7 @@ export class ForgotComponent implements OnInit {
     const anoTemp = {} as RadioButtonInterface;
     anoTemp.codigo = Number(anoNascimento);
     anoTemp.value = indice;
+    this.anoNascimento = anoTemp;
     this.anoNascimentoArray[indice] = anoTemp;
   }
 
@@ -175,6 +185,21 @@ export class ForgotComponent implements OnInit {
   }
 
   enviarEmail() {
+    if (!(this.CpfCorreto && this.anoNascimentoCorreto)) {
+      this.toast.info(
+        'Ano de nascimento/CPF não confere',
+        'Erro de validação',
+        {
+          timeOut: 4000,
+        },
+      );
+
+      setTimeout(() => {
+        this.refresh();
+      }, 3000);
+      return;
+    }
+
     this.spinner.show();
     this.subscriptions.push(
       this.loginService.forgot(this.forgot).subscribe(
@@ -210,5 +235,27 @@ export class ForgotComponent implements OnInit {
         },
       ),
     );
+  }
+
+  validaCpfOuAnoNascimento(indice: number, tipo: number): void {
+    if (tipo === 1) {
+      if (this.cpf5.value === indice) {
+        this.CpfCorreto = true;
+      } else {
+        this.CpfCorreto = false;
+      }
+    }
+
+    if (tipo === 2) {
+      if (this.anoNascimento.value === indice) {
+        this.anoNascimentoCorreto = true;
+      } else {
+        this.anoNascimentoCorreto = false;
+      }
+    }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 }

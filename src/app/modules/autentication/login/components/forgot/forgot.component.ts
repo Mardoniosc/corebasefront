@@ -5,6 +5,8 @@ import {
   ErroDTO,
   ErroGeral,
   LoginService,
+  Usuario,
+  UsuarioService,
 } from 'src/app/modules/shared';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -25,6 +27,8 @@ export class ForgotComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
+  usuario = {} as Usuario;
+
   forgot = {} as Forgot;
 
   erroGeral = {} as ErroGeral;
@@ -33,11 +37,20 @@ export class ForgotComponent implements OnInit {
 
   carregando = false;
 
+  ativado1 = true;
+
+  ativado2 = false;
+
+  ativado3 = false;
+
+  ativado4 = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private toast: ToastrService,
     private loginService: LoginService,
+    private userService: UsuarioService,
     private spinner: NgxSpinnerService,
   ) {}
 
@@ -55,7 +68,7 @@ export class ForgotComponent implements OnInit {
     });
   }
 
-  enviarEmail() {
+  buscarDadosUser(): void {
     this.spinner.show();
     if (this.form.invalid) {
       this.spinner.hide();
@@ -68,6 +81,50 @@ export class ForgotComponent implements OnInit {
 
     this.forgot = this.form.value;
 
+    this.subscriptions.push(
+      this.userService.getUserByEmail(this.forgot.email).subscribe(
+        (data) => {
+          this.spinner.hide();
+          this.usuario = data;
+          this.ativarDesativaraba(2);
+        },
+        (err) => {
+          const title = `Erro 404`;
+          this.spinner.hide();
+          this.toast.error('Usuário não encontrado na base de dados', title, {
+            timeOut: 3000,
+          });
+        },
+      ),
+    );
+  }
+
+  ativarDesativaraba(numeroAba: number): void {
+    switch (numeroAba) {
+      case 1:
+        this.ativado1 = true;
+        document.getElementById('aba1').click();
+        break;
+      case 2:
+        this.ativado2 = true;
+        document.getElementById('aba2').click();
+        break;
+      case 3:
+        this.ativado3 = true;
+        document.getElementById('aba3').click();
+        break;
+      case 4:
+        this.ativado4 = true;
+        document.getElementById('aba4').click();
+        break;
+      default:
+        this.ativado1 = true;
+        document.getElementById('aba1').click();
+    }
+  }
+
+  enviarEmail() {
+    this.spinner.show();
     this.subscriptions.push(
       this.loginService.forgot(this.forgot).subscribe(
         (data) => {

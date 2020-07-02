@@ -17,6 +17,11 @@ import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
+interface RadioButtonInterface {
+  codigo: number;
+  value: number;
+}
+
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
@@ -44,6 +49,10 @@ export class ForgotComponent implements OnInit {
   ativado3 = false;
 
   ativado4 = false;
+
+  cpfArray: RadioButtonInterface[] = [];
+
+  anoNascimentoArray: RadioButtonInterface[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -84,9 +93,12 @@ export class ForgotComponent implements OnInit {
     this.subscriptions.push(
       this.userService.getUserByEmail(this.forgot.email).subscribe(
         (data) => {
+          this.getRandomArbitrary();
           this.spinner.hide();
           this.usuario = data;
           this.ativarDesativaraba(2);
+          this.pegando5digitosCPF();
+          this.getAnoNascimento();
         },
         (err) => {
           const title = `Erro 404`;
@@ -97,6 +109,45 @@ export class ForgotComponent implements OnInit {
         },
       ),
     );
+  }
+
+  pegando5digitosCPF(): void {
+    const cpfcinco = this.usuario.cpf.substr(0, 5);
+    const indice = Math.floor(Math.random() * 4);
+    const cpfTemp = {} as RadioButtonInterface;
+    cpfTemp.codigo = Number(cpfcinco);
+    cpfTemp.value = indice;
+    this.cpfArray[indice] = cpfTemp;
+  }
+
+  getAnoNascimento(): void {
+    let anoNascimento = this.usuario.dataNascimento.toString();
+    anoNascimento = anoNascimento.substr(0, 4);
+    const indice = Math.floor(Math.random() * 4);
+    const anoTemp = {} as RadioButtonInterface;
+    anoTemp.codigo = Number(anoNascimento);
+    anoTemp.value = indice;
+    this.anoNascimentoArray[indice] = anoTemp;
+  }
+
+  getRandomArbitrary(): void {
+    this.cpfArray = [];
+    this.anoNascimentoArray = [];
+    for (let i = 0; i < 4; i += 1) {
+      const randomCpfFake = Math.floor(Math.random() * (99889 - 10000) + 10000);
+      const cpfTemp = {} as RadioButtonInterface;
+      cpfTemp.codigo = randomCpfFake;
+      cpfTemp.value = i;
+      this.cpfArray.push(cpfTemp);
+    }
+
+    for (let i = 0; i < 4; i += 1) {
+      const randomCpfFake = Math.floor(Math.random() * (2020 - 1920) + 1920);
+      const dataNasicimentoTemp = {} as RadioButtonInterface;
+      dataNasicimentoTemp.codigo = randomCpfFake;
+      dataNasicimentoTemp.value = i;
+      this.anoNascimentoArray.push(dataNasicimentoTemp);
+    }
   }
 
   ativarDesativaraba(numeroAba: number): void {

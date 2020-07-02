@@ -37,10 +37,7 @@
                   <div *ngIf="ativado2">
                     <h3>Selecione o item que seja igual aos 5 primeiros digitos do seu CPF</h3>
                     <mat-radio-group style="margin-top: 20px; margin-left: 30px;" aria-label="Select an option">
-                      <mat-radio-button value="1">14981</mat-radio-button>
-                      <mat-radio-button value="2">01982</mat-radio-button>
-                      <mat-radio-button value="3">71989</mat-radio-button>
-                      <mat-radio-button value="4">19493</mat-radio-button>
+                      <mat-radio-button *ngFor="let cpf of cpfArray" value="{{ cpf.value }}">{{ cpf.codigo }}</mat-radio-button>
                     </mat-radio-group>
                     <br>
                     <button style="margin-top: 20px;" (click)="ativarDesativaraba(3)" class="btn btn-primary">Próximo</button>
@@ -52,10 +49,7 @@
                     <h3>Selecione o ano de nascimento</h3>
 
                     <mat-radio-group style="margin-top: 30px;" aria-label="Select an option">
-                      <mat-radio-button value="1">1981</mat-radio-button>
-                      <mat-radio-button value="2">1982</mat-radio-button>
-                      <mat-radio-button value="3">1989</mat-radio-button>
-                      <mat-radio-button value="4">1993</mat-radio-button>
+                      <mat-radio-button *ngFor="let ano of anoNascimentoArray" value="{{ano.value}}">{{ ano.codigo }}</mat-radio-button>
                     </mat-radio-group>
                     <br>
                     <button style="margin-top: 20px;" (click)="ativarDesativaraba(4)" class="btn btn-primary">Próximo</button>

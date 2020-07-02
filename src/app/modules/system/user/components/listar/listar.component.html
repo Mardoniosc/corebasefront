@@ -41,7 +41,6 @@
                           <thead>
                             <tr>
                               <th>Nome</th>
-                              <th>Foto</th>
                               <th>CPF</th>
                               <th><small>Dt Nasc.</small></th>
                               <th>Email</th>
@@ -53,10 +52,6 @@
                             <tbody>
                             <tr class='gradeX' *ngFor="let user of usuariosFiltrados">
                               <td><small>{{ user.nome }}</small></td>
-                              <td>
-                                <img *ngIf="user.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ user.imagem }}" style="width: 40px; height: 40px;"/>
-                                <img *ngIf="!user.imagem" alt="image" class="img-circle" src="../../../../../../assets/img/user-default.png" style="width: 40px; height: 40px;"/>
-                              </td>
                               <td><small>{{ user.cpf | cpfMask }}</small></td>
                               <td> {{ user.dataNascimento | date: 'dd/MM/y' }} </td>
                               <td><small> {{ user.email }} </small></td>
@@ -99,8 +94,8 @@
         <div class="modal-content animated bounceInRight">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <img *ngIf="userDetalhes.imagem" alt="image" class="img-circle" src="{{baseUrlServidor}}/{{ userDetalhes.imagem }}" style="width: 70px; height: 70px;"/>
-                      <img *ngIf="!userDetalhes.imagem" alt="image" class="img-circle" src="../../../../../assets/img/user-default.png" style="width: 70px; height: 70px;"/>
+                    <img *ngIf="userDetalhes.imageProfile" alt="image" class="img-circle" src="data:image/jpeg;base64,{{ userDetalhes.imageProfile }}" style="width: 70px; height: 70px;"/>
+                      <img *ngIf="!userDetalhes.imageProfile" alt="image" class="img-circle" src="../../../../../assets/img/user-default.png" style="width: 70px; height: 70px;"/>
                     <h4 class="modal-title">{{ userDetalhes.nome }}</h4>
                     <h4 *ngIf="!userDetalhes.nome" class="modal-title">Sem nome</h4>
                     <small class="font-bold">{{ userDetalhes.perfil ? 'Perfil: ' + userDetalhes.perfil.nome : 'Perfil não cadastrado' }}</small>

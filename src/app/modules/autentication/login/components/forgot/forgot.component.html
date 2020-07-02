@@ -1,32 +1,86 @@
 <ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium">
-  <p style="color: white;"></p>
+  <h2 style="color: white;">Carregando...</h2>
 </ngx-spinner>
 <div class="body">
-  <div class="middle-box text-center loginscreen animated fadeInDown">
+  <div class="container">
+
     <div>
-        <div>
-            <h1 class="logo-name">MSC+</h1>
+      <h1 class="logo-name">MSC+</h1>
+    </div>
+    <h3>Dados para reset de senha</h3>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="tabs-container">
+            <ul class="nav nav-tabs">
+                <li class="active"><a id="aba1" data-toggle="tab" href="#tab-1"> 1° - E-mail</a></li>
+                <li class=""><a id="aba2" data-toggle="tab" href="#tab-2">2° - CPF</a></li>
+                <li class=""><a id="aba3" data-toggle="tab" href="#tab-3">3° - Data de Nascimento</a></li>
+                <li class=""><a id="aba4" data-toggle="tab" href="#tab-4">4° - Reset de Senha</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                  <form [formGroup]="form" novalidate>
+                    <div class="form-group">
+                        <input
+                          style="margin-top: 20px;"
+                          type="email"
+                          formControlName="email"
+                          class="form-control input-underline input-lg"
+                          id="email"
+                          placeholder="Seu e-mail de cadastro">
+                      </div>
+                    <button type="button" (click)="buscarDadosUser()" class="btn btn-primary block">Buscar Cadastro Usuário</button>
+                </form>
+                </div>
+                <div id="tab-2" class="tab-pane">
+                  <div *ngIf="ativado2">
+                    <h3>Selecione o item que seja igual aos 5 primeiros digitos do seu CPF</h3>
+                    <mat-radio-group style="margin-top: 20px; margin-left: 30px;" aria-label="Select an option">
+                      <mat-radio-button
+                        *ngFor="let cpf of cpfArray"
+                        #cpf5User
+                        (click)="validaCpfOuAnoNascimento(cpf5User.value, 1)"
+                        [value]="cpf.value"
+                      >
+                        {{ cpf.codigo }}
+
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <br>
+                    <button style="margin-top: 20px;" (click)="ativarDesativaraba(3)" class="btn btn-primary">Próximo</button>
+                  </div>
+                  <h1 *ngIf="!ativado2">Necessário preenchimento do e-mail</h1>
+                </div>
+                <div id="tab-3" class="tab-pane">
+                  <div *ngIf="ativado3">
+                    <h3>Selecione o ano de nascimento</h3>
+
+                    <mat-radio-group style="margin-top: 30px;" aria-label="Select an option">
+                      <mat-radio-button
+                        *ngFor="let ano of anoNascimentoArray"
+                        #anoNascimentoUser
+                        (click)="validaCpfOuAnoNascimento(anoNascimentoUser.value, 2)"
+                        [value]="ano.value"
+                      >
+                        {{ ano.codigo }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                    <br>
+                    <button style="margin-top: 20px;" (click)="ativarDesativaraba(4)" class="btn btn-primary">Próximo</button>
+                  </div>
+                  <h1 *ngIf="!ativado3">Necessário preenchimento do e-mail e CPF</h1>
+
+                </div>
+                <div id="tab-4" class="tab-pane">
+                  <button *ngIf="ativado4" style="margin-top: 20px;" class="btn btn-primary block full-width m-b" (click)="enviarEmail()">Resetar Senha</button>
+                  <h1 *ngIf="!ativado4">Necessário preenchimento do e-mail, CPF e Data de Nascimento</h1>
+                </div>
+            </div>
         </div>
-        <h3>Bem-Vindo ao MSC+</h3>
-
-        <p>Informe seu e-mail e senha para acesso!</p>
-        <form [formGroup]="form" novalidate>
-            <div class="form-group">
-                <input
-                  type="email"
-                  formControlName="email"
-                  class="form-control input-underline input-lg"
-                  id="email"
-                  placeholder="Seu e-mail de cadastro">
-              </div>
-            <button type="button" (click)="enviarEmail()" class="btn btn-primary block full-width m-b">Criar nova senha</button>
-
-            <a href="/login"><small>Voltar para tela de login</small></a>
-        </form>
+        <br>
+        <a href="/login"><small>Voltar para tela de login</small></a>
+      </div>
     </div>
   </div>
-
-  <!-- Mainly scripts -->
-  <script src="../../../../../../assets/js/jquery-3.1.1.min.js"></script>
-  <script src="../../../../../../assets/js/bootstrap.min.js"></script>
 </div>

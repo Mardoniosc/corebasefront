@@ -50,15 +50,13 @@
                             <nav aria-label="Page navigation example">
                               <ul class="pagination justify-content-center">
                                 <li class="page-item {{(paginacao.first ? 'disabled' : '')}}">
-                                  <a *ngIf="!paginacao.first" class="page-link" (click)="mudarPagina(paginacao.number - 1)">Anterior</a>
-                                  <a *ngIf="paginacao.first" class="page-link">Anterior</a>
+                                  <a *ngIf="!paginacao.first" class="page-link" (click)="mudarPagina(paginacao.number - 1)"> << Anterior</a>
+                                  <a *ngIf="paginacao.first" class="page-link"> << Anterior</a>
                                 </li>
-                                <li class="page-item" *ngFor="let page of numerosDePaginas">
-                                  <a class="page-link" (click)="mudarPagina(page)" >{{page + 1}}</a>
-                                </li>
-                                <li class="page-item {{(paginacao.last ? 'disabled' : '')}}">
-                                  <a *ngIf="!paginacao.last" class="page-link" (click)="mudarPagina(paginacao.number + 1)">Proximo</a>
-                                  <a *ngIf="paginacao.last" class="page-link">Proximo</a>
+
+                                <li  class="page-item {{(paginacao.last ? 'disabled' : '')}}">
+                                  <a style="margin-left: 20px;" *ngIf="!paginacao.last" class="page-link" (click)="mudarPagina(paginacao.number + 1)">Proximo >> </a>
+                                  <a *ngIf="paginacao.last" class="page-link"> Proximo >> </a>
                                 </li>
                               </ul>
                             </nav>
